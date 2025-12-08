@@ -1,6 +1,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AIResponse } from '../types';
 
+// Build hatasını gidermek için tip tanımı
+declare const process: {
+  env: {
+    API_KEY: string | undefined;
+  }
+};
+
 const getClient = () => {
     if (!process.env.API_KEY) {
         throw new Error("API Key bulunamadı. Lütfen environment variable'larını kontrol edin.");
