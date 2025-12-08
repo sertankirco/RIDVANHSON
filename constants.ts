@@ -2,7 +2,7 @@ import { BlogPost, SiteContent } from './types';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
-    "name": "Sertan Rıdvan Haliloğlu",
+    "name": "Rıdvan Haliloğlu",
     "title": "Yetkilendirilmiş Gümrük Müşaviri & Eğitmen"
   },
   "hero": {
