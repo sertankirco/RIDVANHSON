@@ -28,7 +28,12 @@ import {
   ArrowUp,
   ArrowDown,
   Image as ImageIcon,
-  AlertCircle
+  AlertCircle,
+  Twitter,
+  Facebook,
+  Instagram,
+  Youtube,
+  Linkedin
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -908,6 +913,73 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                       value={editContent.personal.title}
                       onChange={(e) => setEditContent({...editContent, personal: {...editContent.personal, title: e.target.value}})}
                       className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Media Section */}
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h2 className="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Sosyal Medya Hesapları</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <Twitter className="w-4 h-4 text-slate-500" /> X (Twitter) URL
+                    </label>
+                    <input 
+                      type="text" 
+                      value={editContent.socialMedia?.twitter || ''}
+                      onChange={(e) => setEditContent({...editContent, socialMedia: {...editContent.socialMedia, twitter: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="https://x.com/..."
+                    />
+                  </div>
+                   <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <Linkedin className="w-4 h-4 text-blue-700" /> LinkedIn URL
+                    </label>
+                    <input 
+                      type="text" 
+                      value={editContent.socialMedia?.linkedin || ''}
+                      onChange={(e) => setEditContent({...editContent, socialMedia: {...editContent.socialMedia, linkedin: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="https://linkedin.com/in/..."
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <Facebook className="w-4 h-4 text-blue-600" /> Facebook URL
+                    </label>
+                    <input 
+                      type="text" 
+                      value={editContent.socialMedia?.facebook || ''}
+                      onChange={(e) => setEditContent({...editContent, socialMedia: {...editContent.socialMedia, facebook: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="https://facebook.com/..."
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <Instagram className="w-4 h-4 text-pink-600" /> Instagram URL
+                    </label>
+                    <input 
+                      type="text" 
+                      value={editContent.socialMedia?.instagram || ''}
+                      onChange={(e) => setEditContent({...editContent, socialMedia: {...editContent.socialMedia, instagram: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="https://instagram.com/..."
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <Youtube className="w-4 h-4 text-red-600" /> YouTube URL
+                    </label>
+                    <input 
+                      type="text" 
+                      value={editContent.socialMedia?.youtube || ''}
+                      onChange={(e) => setEditContent({...editContent, socialMedia: {...editContent.socialMedia, youtube: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="https://youtube.com/..."
                     />
                   </div>
                 </div>

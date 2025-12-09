@@ -37,6 +37,13 @@ export interface SiteContent {
     name: string;
     title: string;
   };
+  socialMedia: {
+    twitter?: string; // X
+    facebook?: string;
+    instagram?: string;
+    youtube?: string;
+    linkedin?: string;
+  };
   hero: {
     badge: string;
     titleLine1: string;

@@ -23,7 +23,11 @@ import {
   X,
   Lock,
   ArrowRight,
-  Play
+  Play,
+  Facebook,
+  Instagram,
+  Youtube,
+  Twitter
 } from 'lucide-react';
 
 type ViewMode = 'public' | 'login' | 'admin';
@@ -70,7 +74,11 @@ export default function App() {
         },
         about: {
           ...INITIAL_SITE_CONTENT.about,
-          ...parsed.about
+          ...(parsed.about || {})
+        },
+        socialMedia: {
+          ...INITIAL_SITE_CONTENT.socialMedia,
+          ...(parsed.socialMedia || {})
         },
         videos: parsed.videos || INITIAL_SITE_CONTENT.videos,
         experience: parsed.experience || INITIAL_SITE_CONTENT.experience
@@ -446,13 +454,32 @@ export default function App() {
               <span className="font-semibold text-slate-900">{siteContent.personal.name} © {new Date().getFullYear()}</span>
             </div>
             
-            <div className="flex gap-6">
-              <a href="#" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-blue-600 hover:text-white transition-all">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="#" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-blue-600 hover:text-white transition-all">
-                <Globe className="w-5 h-5" />
-              </a>
+            <div className="flex gap-4">
+              {siteContent.socialMedia?.twitter && (
+                <a href={siteContent.socialMedia.twitter} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-slate-900 hover:text-white transition-all" title="X (Twitter)">
+                  <Twitter className="w-5 h-5" />
+                </a>
+              )}
+              {siteContent.socialMedia?.facebook && (
+                <a href={siteContent.socialMedia.facebook} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-blue-600 hover:text-white transition-all" title="Facebook">
+                  <Facebook className="w-5 h-5" />
+                </a>
+              )}
+              {siteContent.socialMedia?.instagram && (
+                <a href={siteContent.socialMedia.instagram} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-pink-600 hover:text-white transition-all" title="Instagram">
+                  <Instagram className="w-5 h-5" />
+                </a>
+              )}
+              {siteContent.socialMedia?.youtube && (
+                <a href={siteContent.socialMedia.youtube} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-red-600 hover:text-white transition-all" title="YouTube">
+                  <Youtube className="w-5 h-5" />
+                </a>
+              )}
+               {siteContent.socialMedia?.linkedin && (
+                <a href={siteContent.socialMedia.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-blue-700 hover:text-white transition-all" title="LinkedIn">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+              )}
             </div>
           </div>
           <div className="mt-8 flex justify-between items-center text-sm text-slate-400">
