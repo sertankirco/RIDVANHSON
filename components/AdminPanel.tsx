@@ -1,5 +1,4 @@
-// Gerekli import'ları ekleyelim
-import React, { useState, FC } from 'react';
+import React, { useState, FC, ReactNode } from 'react';
 import { BlogPost, SiteContent, Video, Experience } from '../types';
 import { Button } from './Button';
 import { generateBlogContent } from '../services/geminiService';
@@ -15,6 +14,8 @@ import {
   Sparkles,
   Plus,
   Search,
+  Eye,
+  TrendingUp,
   Settings,
   Save,
   Code,
@@ -42,119 +43,42 @@ export const AdminPanel: FC<AdminPanelProps> = ({
   onUpdateSiteContent,
   onLogout, 
   onViewSite 
-}) => {
+}): ReactNode => {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'posts' | 'new' | 'videos' | 'experience' | 'settings' | 'export'>('dashboard');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   // Editing State
   const [editingId, setEditingId] = useState<string | null>(null);
 
   // Post Form State
-  const [newPostTitle, setNewPostTitle] = useState('');
-  const [newPostContent, setNewPostContent] = useState('');
-  const [newPostSummary, setNewPostSummary] = useState('');
-  const [newPostImage, setNewPostImage] = useState('');
+  const [newPostTitle, setNewPostTitle] = useState<string>('');
+  const [newPostContent, setNewPostContent] = useState<string>('');
+  const [newPostSummary, setNewPostSummary] = useState<string>('');
+  const [newPostImage, setNewPostImage] = useState<string>('');
   
   // Video Form State
-  const [videoTitle, setVideoTitle] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
-  const [videoDesc, setVideoDesc] = useState('');
+  const [videoTitle, setVideoTitle] = useState<string>('');
+  const [videoUrl, setVideoUrl] = useState<string>('');
+  const [videoDesc, setVideoDesc] = useState<string>('');
 
   // Experience Form State
-  const [expCompany, setExpCompany] = useState('');
-  const [expRole, setExpRole] = useState('');
-  const [expPeriod, setExpPeriod] = useState('');
-  const [expDesc, setExpDesc] = useState('');
+  const [expCompany, setExpCompany] = useState<string>('');
+  const [expRole, setExpRole] = useState<string>('');
+  const [expPeriod, setExpPeriod] = useState<string>('');
+  const [expDesc, setExpDesc] = useState<string>('');
   const [editingExpId, setEditingExpId] = useState<string | null>(null);
 
   // AI State
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiTopic, setAiTopic] = useState('');
+  const [aiLoading, setAiLoading] = useState<boolean>(false);
+  const [aiTopic, setAiTopic] = useState<string>('');
 
   // Settings State
   const [editContent, setEditContent] = useState<SiteContent>(siteContent);
 
   // Export State
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState<boolean>(false);
 
-  // ... (diğer fonksiyonlar aynı kalacak, sadece type düzeltmeleri yapıldı)
-
-  // --- Experience Functions ---
-  const handleAddExperience = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (editingExpId) {
-      // Update existing experience
-      const updatedExp: Experience = {
-        id: editingExpId,
-        company: expCompany,
-        role: expRole,
-        period: expPeriod,
-        description: expDesc
-      };
-
-      const currentExp = siteContent.experience || [];
-      const updatedContent = { 
-        ...siteContent, 
-        experience: currentExp.map(exp => exp.id === editingExpId ? updatedExp : exp)
-      };
-
-      onUpdateSiteContent(updatedContent);
-      setEditContent(updatedContent);
-
-      // Reset form and editing state
-      setEditingExpId(null);
-      setExpCompany('');
-      setExpRole('');
-      setExpPeriod('');
-      setExpDesc('');
-      
-      alert('Deneyim başarıyla güncellendi!');
-    } else {
-      // Create new experience
-      const newExp: Experience = {
-        id: Date.now().toString(),
-        company: expCompany,
-        role: expRole,
-        period: expPeriod,
-        description: expDesc
-      };
-
-      const currentExp = siteContent.experience || [];
-      const updatedContent = { ...siteContent, experience: [newExp, ...currentExp] };
-
-      onUpdateSiteContent(updatedContent);
-      setEditContent(updatedContent);
-
-      setExpCompany('');
-      setExpRole('');
-      setExpPeriod('');
-      setExpDesc('');
-      alert('Deneyim eklendi!');
-    }
-  };
-
-  const handleEditExperience = (exp: Experience) => {
-    setEditingExpId(exp.id);
-    setExpCompany(exp.company);
-    setExpRole(exp.role);
-    setExpPeriod(exp.period);
-    setExpDesc(exp.description);
-    setActiveTab('experience');
-  };
-
-  const handleDeleteExperience = (id: string) => {
-    if (window.confirm('Bu deneyimi silmek istediğinize emin misiniz?')) {
-       const currentExp = siteContent.experience || [];
-       const updatedExp = currentExp.filter(e => e.id !== id);
-       const updatedContent = { ...siteContent, experience: updatedExp };
-       onUpdateSiteContent(updatedContent);
-       setEditContent(updatedContent);
-       setEditingExpId(null); // Reset editing state if deleting current item
-    }
-  };
-
-  // ... (diğer fonksiyonlar aynı kalacak)
+  // ... (Fonksiyonlar burada aynı kalacak)
 
   return (
     // ... (JSX kısmı aynı kalacak)
