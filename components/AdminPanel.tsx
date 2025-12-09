@@ -224,8 +224,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     setExpRole(exp.role);
     setExpPeriod(exp.period);
     setExpDesc(exp.description);
-    // Scroll to top of the form
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll to form
+    const formElement = document.getElementById('experience-form');
+    if (formElement) formElement.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleDeleteExperience = (id: string) => {
@@ -507,8 +508,8 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
               <h1 className="text-2xl font-bold text-slate-900">Profesyonel Yolculuk Yönetimi</h1>
             </div>
             
-            {/* Add New Experience Form */}
-            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+            {/* Add/Edit Experience Form */}
+            <div id="experience-form" className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                <h3 className="text-lg font-bold text-slate-900 mb-4">
                  {editingId ? 'Deneyim Düzenle' : 'Yeni Deneyim Ekle'}
                </h3>
