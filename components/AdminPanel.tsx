@@ -26,7 +26,9 @@ import {
   Edit,
   Play,
   Briefcase,
-  XCircle
+  XCircle,
+  ArrowUp,
+  ArrowDown
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -240,6 +242,24 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
        // If deleting the currently editing item, reset form
        if (editingId === id) resetForm();
     }
+ };
+
+ const handleMoveExperience = (index: number, direction: 'up' | 'down') => {
+    const currentExp = [...(siteContent.experience || [])];
+    
+    if (direction === 'up') {
+        if (index === 0) return; // Zaten en üstte
+        // Swap with previous
+        [currentExp[index], currentExp[index - 1]] = [currentExp[index - 1], currentExp[index]];
+    } else {
+        if (index === currentExp.length - 1) return; // Zaten en altta
+        // Swap with next
+        [currentExp[index], currentExp[index + 1]] = [currentExp[index + 1], currentExp[index]];
+    }
+
+    const updatedContent = { ...siteContent, experience: currentExp };
+    onUpdateSiteContent(updatedContent);
+    setEditContent(updatedContent);
  };
 
 
@@ -586,8 +606,29 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                <h3 className="text-lg font-bold text-slate-900 mb-4">Mevcut Deneyimler</h3>
                <div className="space-y-4">
                   {(siteContent.experience && siteContent.experience.length > 0) ? (
-                    siteContent.experience.map(exp => (
+                    siteContent.experience.map((exp, index) => (
                       <div key={exp.id} className={`flex items-center gap-4 p-4 bg-slate-50 rounded-lg border border-slate-100 ${editingId === exp.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}>
+                         
+                         {/* Ordering Buttons */}
+                         <div className="flex flex-col gap-1 pr-2 border-r border-slate-200">
+                             <button 
+                                onClick={() => handleMoveExperience(index, 'up')}
+                                disabled={index === 0}
+                                className="p-1 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded disabled:opacity-30 disabled:cursor-not-allowed"
+                                title="Yukarı Taşı"
+                             >
+                                <ArrowUp className="w-4 h-4" />
+                             </button>
+                             <button 
+                                onClick={() => handleMoveExperience(index, 'down')}
+                                disabled={index === (siteContent.experience?.length || 0) - 1}
+                                className="p-1 text-slate-400 hover:text-blue-600 hover:bg-slate-100 rounded disabled:opacity-30 disabled:cursor-not-allowed"
+                                title="Aşağı Taşı"
+                             >
+                                <ArrowDown className="w-4 h-4" />
+                             </button>
+                         </div>
+
                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 shrink-0">
                             <Briefcase className="w-5 h-5 text-slate-500" />
                          </div>
