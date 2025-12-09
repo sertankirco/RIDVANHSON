@@ -10,9 +10,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     define: {
-      // API Key'i öncelikli tanımla
       'process.env.API_KEY': JSON.stringify(env.VITE_API_KEY || process.env.API_KEY || ''),
-      // Diğer process.env çağrıları için boş obje ata (çökmemesi için)
       'process.env': {}
     }
   }
