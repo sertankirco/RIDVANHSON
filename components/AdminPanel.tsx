@@ -20,7 +20,8 @@ import {
   Code,
   Copy,
   Check,
-  Github
+  Github,
+  Edit
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -43,11 +44,16 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [activeTab, setActiveTab] = useState<'dashboard' | 'posts' | 'new' | 'settings' | 'export'>('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // New Post State
+  // Editing State
+  const [editingId, setEditingId] = useState<string | null>(null);
+
+  // Post Form State
   const [newPostTitle, setNewPostTitle] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
   const [newPostSummary, setNewPostSummary] = useState('');
   const [newPostImage, setNewPostImage] = useState('');
+  
+  // AI State
   const [aiLoading, setAiLoading] = useState(false);
   const [aiTopic, setAiTopic] = useState('');
 
@@ -58,25 +64,56 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [copied, setCopied] = useState(false);
 
   const handleDelete = (id: string) => {
-    if (confirm('Bu yazıyı silmek istediğinize emin misiniz?')) {
-      setPosts(posts.filter(p => p.id !== id));
+    if (window.confirm('Bu yazıyı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.')) {
+      const updatedPosts = posts.filter(p => p.id !== id);
+      setPosts(updatedPosts);
     }
+  };
+
+  const handleEdit = (post: BlogPost) => {
+    setEditingId(post.id);
+    setNewPostTitle(post.title);
+    setNewPostContent(post.content);
+    setNewPostSummary(post.summary);
+    setNewPostImage(post.imageUrl);
+    setActiveTab('new');
   };
 
   const handleManualSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newPost: BlogPost = {
-      id: Date.now().toString(),
-      title: newPostTitle,
-      content: newPostContent,
-      summary: newPostSummary,
-      tags: ['Genel'],
-      author: siteContent.personal.name,
-      date: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }),
-      imageUrl: newPostImage || `https://picsum.photos/800/600?random=${Date.now()}`
-    };
-    setPosts([newPost, ...posts]);
-    alert('Yazı başarıyla yayınlandı!');
+    
+    if (editingId) {
+      // Update existing post
+      const updatedPosts = posts.map(post => {
+        if (post.id === editingId) {
+          return {
+            ...post,
+            title: newPostTitle,
+            content: newPostContent,
+            summary: newPostSummary,
+            imageUrl: newPostImage || post.imageUrl
+          };
+        }
+        return post;
+      });
+      setPosts(updatedPosts);
+      alert('Yazı başarıyla güncellendi!');
+    } else {
+      // Create new post
+      const newPost: BlogPost = {
+        id: Date.now().toString(),
+        title: newPostTitle,
+        content: newPostContent,
+        summary: newPostSummary,
+        tags: ['Genel'],
+        author: siteContent.personal.name,
+        date: new Date().toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' }),
+        imageUrl: newPostImage || `https://picsum.photos/800/600?random=${Date.now()}`
+      };
+      setPosts([newPost, ...posts]);
+      alert('Yazı başarıyla yayınlandı!');
+    }
+    
     setActiveTab('posts');
     resetForm();
   };
@@ -118,6 +155,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
   };
 
   const resetForm = () => {
+    setEditingId(null);
     setNewPostTitle('');
     setNewPostContent('');
     setNewPostSummary('');
@@ -141,22 +179,22 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
         
         <nav className="flex-1 p-4 space-y-2">
           <button 
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => { setActiveTab('dashboard'); resetForm(); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'dashboard' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
           >
             <LayoutDashboard className="w-5 h-5" />
             Genel Bakış
           </button>
           <button 
-            onClick={() => setActiveTab('posts')}
+            onClick={() => { setActiveTab('posts'); resetForm(); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'posts' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
           >
             <FileText className="w-5 h-5" />
             Yazılar
           </button>
           <button 
-            onClick={() => setActiveTab('new')}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'new' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+            onClick={() => { setActiveTab('new'); resetForm(); }}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'new' && !editingId ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
           >
             <PenTool className="w-5 h-5" />
             Yeni Yazı Ekle
@@ -240,7 +278,15 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                         <p className="text-sm text-slate-500">{post.date}</p>
                       </div>
                     </div>
-                    <Button variant="secondary" onClick={() => setActiveTab('posts')} className="text-sm">Yönet</Button>
+                    <div className="flex gap-2">
+                       <button 
+                        onClick={() => handleEdit(post)}
+                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                        title="Düzenle"
+                      >
+                        <Edit className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -252,7 +298,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
           <div className="space-y-6 animate-fadeIn">
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold text-slate-900">Yazı Yönetimi</h1>
-              <Button onClick={() => setActiveTab('new')} icon={<Plus className="w-4 h-4" />}>Yeni Ekle</Button>
+              <Button onClick={() => { resetForm(); setActiveTab('new'); }} icon={<Plus className="w-4 h-4" />}>Yeni Ekle</Button>
             </div>
 
             <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6">
@@ -292,13 +338,22 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                       <td className="p-4 font-medium text-slate-900">{post.title}</td>
                       <td className="p-4 text-slate-500 text-sm">{post.date}</td>
                       <td className="p-4 text-right">
-                        <button 
-                          onClick={() => handleDelete(post.id)}
-                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                          title="Sil"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </button>
+                        <div className="flex justify-end gap-2">
+                           <button 
+                            onClick={() => handleEdit(post)}
+                            className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+                            title="Düzenle"
+                          >
+                            <Edit className="w-5 h-5" />
+                          </button>
+                          <button 
+                            onClick={() => handleDelete(post.id)}
+                            className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                            title="Sil"
+                          >
+                            <Trash2 className="w-5 h-5" />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -315,32 +370,36 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
 
         {activeTab === 'new' && (
           <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
-            <h1 className="text-2xl font-bold text-slate-900">Yeni Yazı Ekle</h1>
+            <h1 className="text-2xl font-bold text-slate-900">
+              {editingId ? 'Yazıyı Düzenle' : 'Yeni Yazı Ekle'}
+            </h1>
 
-            {/* AI Assistant Section */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100">
-              <div className="flex items-start gap-4">
-                <div className="bg-white p-2 rounded-lg text-blue-600 shadow-sm">
-                  <Sparkles className="w-6 h-6" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">AI Asistan ile Taslak Oluştur</h3>
-                  <p className="text-sm text-slate-600 mb-4">Bir konu başlığı girin, yapay zeka sizin için başlık, özet ve içeriği oluştursun.</p>
-                  <div className="flex gap-2">
-                    <input 
-                      type="text" 
-                      value={aiTopic}
-                      onChange={(e) => setAiTopic(e.target.value)}
-                      placeholder="Örn: 2024 Lojistik Trendleri..."
-                      className="flex-1 px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                    <Button onClick={handleAIGenerate} isLoading={aiLoading} icon={<Sparkles className="w-4 h-4" />}>
-                      Oluştur
-                    </Button>
+            {/* AI Assistant Section - Only show for new posts to avoid overwriting edits */}
+            {!editingId && (
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100">
+                <div className="flex items-start gap-4">
+                  <div className="bg-white p-2 rounded-lg text-blue-600 shadow-sm">
+                    <Sparkles className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">AI Asistan ile Taslak Oluştur</h3>
+                    <p className="text-sm text-slate-600 mb-4">Bir konu başlığı girin, yapay zeka sizin için başlık, özet ve içeriği oluştursun.</p>
+                    <div className="flex gap-2">
+                      <input 
+                        type="text" 
+                        value={aiTopic}
+                        onChange={(e) => setAiTopic(e.target.value)}
+                        placeholder="Örn: 2024 Lojistik Trendleri..."
+                        className="flex-1 px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      />
+                      <Button onClick={handleAIGenerate} isLoading={aiLoading} icon={<Sparkles className="w-4 h-4" />}>
+                        Oluştur
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Manual Form */}
             <form onSubmit={handleManualSubmit} className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 space-y-6">
@@ -390,8 +449,16 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
               </div>
 
               <div className="flex justify-end gap-4 pt-4 border-t border-slate-100">
-                <Button type="button" variant="secondary" onClick={() => setActiveTab('posts')}>İptal</Button>
-                <Button type="submit">Yazıyı Yayınla</Button>
+                <Button 
+                  type="button" 
+                  variant="secondary" 
+                  onClick={() => { setActiveTab('posts'); resetForm(); }}
+                >
+                  İptal
+                </Button>
+                <Button type="submit">
+                  {editingId ? 'Güncelle' : 'Yazıyı Yayınla'}
+                </Button>
               </div>
             </form>
           </div>
