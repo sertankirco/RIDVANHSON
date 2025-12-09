@@ -3,14 +3,17 @@ import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, (process as any).cwd(), '');
+  // process.cwd() ESM modüllerinde bazen sorun yaratabilir, güvenli erişim sağlıyoruz.
+  const cwd = (process as any).cwd ? (process as any).cwd() : '.';
+  const env = loadEnv(mode, cwd, '');
+  
   return {
     plugins: [react()],
     define: {
-      // process.env nesnesini tamamen boş obje ({}) olarak tanımlamak
-      // build sırasında Rollup hatasına neden olur. 
-      // Sadece API_KEY değişkenini replace ediyoruz.
-      'process.env.API_KEY': JSON.stringify(env.VITE_API_KEY || process.env.API_KEY || '')
+      // API_KEY'i güvenli bir şekilde string olarak gömüyoruz.
+      'process.env.API_KEY': JSON.stringify(env.VITE_API_KEY || process.env.API_KEY || ''),
+      // Diğer kütüphanelerin 'process is not defined' hatası vermesini engelliyoruz.
+      'process.env': JSON.stringify({})
     }
   }
 })

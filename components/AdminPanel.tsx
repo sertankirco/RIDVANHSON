@@ -28,8 +28,7 @@ import {
   ArrowUp,
   ArrowDown,
   Image as ImageIcon,
-  AlertCircle,
-  ExternalLink
+  AlertCircle
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -40,6 +39,36 @@ interface AdminPanelProps {
   onLogout: () => void;
   onViewSite: () => void;
 }
+
+// ImagePreview bileşenini dışarı taşıdık (Performans ve React best-practice için)
+const ImagePreview = ({ url }: { url: string }) => {
+  const validUrl = getValidImageUrl(url);
+  if (!url) return null;
+  
+  return (
+    <div className="mt-3 p-3 bg-slate-50 border border-slate-200 rounded-lg">
+      <p className="text-xs text-slate-500 mb-2 font-medium">Görsel Önizlemesi:</p>
+      <div className="relative h-48 w-full bg-slate-200 rounded overflow-hidden flex items-center justify-center">
+        <img 
+          src={validUrl} 
+          alt="Önizleme" 
+          className="max-w-full max-h-full object-contain"
+          referrerPolicy="no-referrer"
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+            const errorDiv = (e.target as HTMLImageElement).nextElementSibling;
+            if (errorDiv) errorDiv.classList.remove('hidden');
+          }}
+        />
+        <div className="hidden absolute inset-0 flex flex-col items-center justify-center text-red-500 p-4 text-center bg-slate-100">
+          <AlertCircle className="w-8 h-8 mb-2" />
+          <span className="text-sm font-bold">Görsel Yüklenemedi</span>
+          <span className="text-xs mt-1">Lütfen Drive dosyasının "Bağlantıya sahip olan herkes" (Public) olarak ayarlandığından emin olun.</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const AdminPanel: React.FC<AdminPanelProps> = ({ 
   posts, 
@@ -81,35 +110,6 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
   // Export State
   const [copied, setCopied] = useState(false);
-
-  // Image Preview Helper Component
-  const ImagePreview = ({ url }: { url: string }) => {
-    const validUrl = getValidImageUrl(url);
-    if (!url) return null;
-    
-    return (
-      <div className="mt-3 p-3 bg-slate-50 border border-slate-200 rounded-lg">
-        <p className="text-xs text-slate-500 mb-2 font-medium">Görsel Önizlemesi:</p>
-        <div className="relative h-48 w-full bg-slate-200 rounded overflow-hidden">
-          <img 
-            src={validUrl} 
-            alt="Önizleme" 
-            className="w-full h-full object-contain"
-            referrerPolicy="no-referrer"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none';
-              (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
-            }}
-          />
-          <div className="hidden absolute inset-0 flex flex-col items-center justify-center text-red-500 p-4 text-center">
-            <AlertCircle className="w-8 h-8 mb-2" />
-            <span className="text-sm font-bold">Görsel Yüklenemedi</span>
-            <span className="text-xs mt-1">Lütfen Drive dosyasının "Bağlantıya sahip olan herkes" (Public) olarak ayarlandığından emin olun.</span>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   // --- Reset Forms ---
   const resetForm = () => {
@@ -471,7 +471,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
           </div>
         )}
 
-        {/* ... (Videos Tab content remains similar, no image preview needed there usually but kept context) ... */}
+        {/* ... (Videos Tab content remains similar) ... */}
         {activeTab === 'videos' && (
           <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
              <div className="flex justify-between items-center">
