@@ -2,23 +2,16 @@ export const getValidImageUrl = (url: string | undefined): string => {
   if (!url) return '';
   
   // Google Drive linklerini doğrudan resim kaynağına dönüştür
-  if (url.includes('drive.google.com')) {
+  if (url.includes('drive.google.com') || url.includes('docs.google.com')) {
     try {
-        // Format 1: /file/d/ID/view
-        if (url.includes('/file/d/')) {
-            const parts = url.split('/file/d/');
-            if (parts.length > 1) {
-                const id = parts[1].split('/')[0];
-                return `https://drive.google.com/uc?export=view&id=${id}`;
-            }
-        }
-        // Format 2: open?id=ID
-        else if (url.includes('id=')) {
-            const idParam = url.split('id=')[1];
-            if (idParam) {
-                const id = idParam.split('&')[0];
-                return `https://drive.google.com/uc?export=view&id=${id}`;
-            }
+        // Regex ile ID'yi yakala (25 karakterden uzun alfanümerik diziler genelde ID'dir)
+        const idMatch = url.match(/[-\w]{25,}/);
+        
+        if (idMatch) {
+            const id = idMatch[0];
+            // 'thumbnail' endpoint'i 'uc?export=view' endpoint'ine göre daha hızlıdır ve daha az kota sorunu yaşatır.
+            // sz=w1920 parametresi görseli yüksek kalitede (1920px genişlik) çeker.
+            return `https://drive.google.com/thumbnail?id=${id}&sz=w1920`;
         }
     } catch (e) {
         console.error("Drive URL ayrıştırma hatası", e);

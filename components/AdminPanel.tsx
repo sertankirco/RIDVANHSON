@@ -15,8 +15,6 @@ import {
   Sparkles,
   Plus,
   Search,
-  Eye,
-  TrendingUp,
   Settings,
   Save,
   Code,
@@ -30,7 +28,8 @@ import {
   ArrowUp,
   ArrowDown,
   Image as ImageIcon,
-  AlertCircle
+  AlertCircle,
+  ExternalLink
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -82,6 +81,35 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
   // Export State
   const [copied, setCopied] = useState(false);
+
+  // Image Preview Helper Component
+  const ImagePreview = ({ url }: { url: string }) => {
+    const validUrl = getValidImageUrl(url);
+    if (!url) return null;
+    
+    return (
+      <div className="mt-3 p-3 bg-slate-50 border border-slate-200 rounded-lg">
+        <p className="text-xs text-slate-500 mb-2 font-medium">Görsel Önizlemesi:</p>
+        <div className="relative h-48 w-full bg-slate-200 rounded overflow-hidden">
+          <img 
+            src={validUrl} 
+            alt="Önizleme" 
+            className="w-full h-full object-contain"
+            referrerPolicy="no-referrer"
+            onError={(e) => {
+              (e.target as HTMLImageElement).style.display = 'none';
+              (e.target as HTMLImageElement).nextElementSibling?.classList.remove('hidden');
+            }}
+          />
+          <div className="hidden absolute inset-0 flex flex-col items-center justify-center text-red-500 p-4 text-center">
+            <AlertCircle className="w-8 h-8 mb-2" />
+            <span className="text-sm font-bold">Görsel Yüklenemedi</span>
+            <span className="text-xs mt-1">Lütfen Drive dosyasının "Bağlantıya sahip olan herkes" (Public) olarak ayarlandığından emin olun.</span>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // --- Reset Forms ---
   const resetForm = () => {
@@ -443,12 +471,12 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
           </div>
         )}
 
+        {/* ... (Videos Tab content remains similar, no image preview needed there usually but kept context) ... */}
         {activeTab === 'videos' && (
           <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
              <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold text-slate-900">Video Yönetimi</h1>
             </div>
-            
             {/* Add New Video Form */}
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                <h3 className="text-lg font-bold text-slate-900 mb-4">Yeni Video Ekle</h3>
@@ -490,7 +518,6 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                   </div>
                </form>
             </div>
-
             {/* Existing Videos List */}
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                <h3 className="text-lg font-bold text-slate-900 mb-4">Mevcut Videolar</h3>
@@ -524,6 +551,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
           </div>
         )}
 
+        {/* ... (Experience Tab content same as before) ... */}
         {activeTab === 'experience' && (
           <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
              <div className="flex justify-between items-center">
@@ -610,7 +638,6 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                   {(siteContent.experience && siteContent.experience.length > 0) ? (
                     siteContent.experience.map((exp, index) => (
                       <div key={exp.id} className={`flex items-center gap-4 p-4 bg-slate-50 rounded-lg border border-slate-100 ${editingId === exp.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}>
-                         
                          {/* Ordering Buttons */}
                          <div className="flex flex-col gap-1 pr-2 border-r border-slate-200">
                              <button 
@@ -630,7 +657,6 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                                 <ArrowDown className="w-4 h-4" />
                              </button>
                          </div>
-
                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 shrink-0">
                             <Briefcase className="w-5 h-5 text-slate-500" />
                          </div>
@@ -668,13 +694,14 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
           </div>
         )}
 
+        {/* ... (Posts List Tab same as before) ... */}
         {activeTab === 'posts' && (
           <div className="space-y-6 animate-fadeIn">
             <div className="flex justify-between items-center">
               <h1 className="text-2xl font-bold text-slate-900">Yazı Yönetimi</h1>
               <Button onClick={() => { resetForm(); setActiveTab('new'); }} icon={<Plus className="w-4 h-4" />}>Yeni Ekle</Button>
             </div>
-
+            {/* ... search and table ... */}
             <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 mb-6">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
@@ -687,7 +714,6 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                 />
               </div>
             </div>
-
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
               <table className="w-full text-left border-collapse">
                 <thead className="bg-slate-50 border-b border-slate-200">
@@ -748,7 +774,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
               {editingId ? 'Yazıyı Düzenle' : 'Yeni Yazı Ekle'}
             </h1>
 
-            {/* AI Assistant Section - Only show for new posts to avoid overwriting edits */}
+            {/* AI Assistant Section */}
             {!editingId && (
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-100">
                 <div className="flex items-start gap-4">
@@ -802,11 +828,13 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                   placeholder="https://drive.google.com/..."
                   className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
                 />
+                <ImagePreview url={newPostImage} />
                 <div className="mt-2 text-xs text-slate-500 bg-slate-50 p-2 rounded border border-slate-100 flex items-start">
                    <AlertCircle className="w-4 h-4 mr-2 text-slate-400 shrink-0" />
                    <div>
                      <strong>İpucu:</strong> Google Drive linki kullanacaksanız, dosyanın paylaşım ayarlarını 
                      <span className="text-slate-700 font-semibold"> "Bağlantıya sahip olan herkes"</span> (Public) olarak ayarlamalısınız.
+                     Fotoğraf yukarıda görünüyorsa sorunsuz çalışacaktır.
                    </div>
                 </div>
               </div>
@@ -902,9 +930,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                       onChange={(e) => setEditContent({...editContent, hero: {...editContent.hero, imageUrl: e.target.value}})}
                       className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                     <div className="mt-1 text-xs text-slate-500">
-                        Google Drive linki kullanacaksanız, dosya paylaşımını "Herkes" (Public) yapmayı unutmayın.
-                     </div>
+                     <ImagePreview url={editContent.hero.imageUrl} />
                   </div>
                    <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">Üst Rozet Yazısı</label>
@@ -915,6 +941,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                       className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
+                  {/* ... other hero fields ... */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-1">Slogan 1. Satır</label>
@@ -994,6 +1021,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
           </div>
         )}
 
+        {/* ... (Export Tab remains the same) ... */}
         {activeTab === 'export' && (
            <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
              <div className="bg-purple-50 p-6 rounded-xl border border-purple-100 mb-8">
