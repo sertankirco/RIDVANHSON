@@ -1,6 +1,10 @@
 
 import { BlogPost, SiteContent } from './types';
 
+// Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
+// eski veriyi silip yenisiyle güncelleyecektir.
+export const APP_VERSION = '1.5'; 
+
 export const INITIAL_SITE_CONTENT: SiteContent = {
   personal: {
     name: "Rıdvan Haliloğlu",

@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { BlogPost, SiteContent } from './types';
-import { INITIAL_POSTS, INITIAL_SITE_CONTENT } from './constants';
+import { INITIAL_POSTS, INITIAL_SITE_CONTENT, APP_VERSION } from './constants';
 import { BlogCard } from './components/BlogCard';
 import { PostModal } from './components/PostModal';
 import { BioModal } from './components/BioModal';
@@ -29,16 +29,52 @@ import {
 type ViewMode = 'public' | 'login' | 'admin';
 
 export default function App() {
+  // Versiyon Kontrolü: Eski verileri temizle
+  useEffect(() => {
+    const savedVersion = localStorage.getItem('app_version');
+    if (savedVersion !== APP_VERSION) {
+      // Eğer versiyon değişmişse, kullanıcıya yeni yapıyı göstermek için versiyonu güncelle
+      // State başlatılırken (aşağıda) bu kontrol yapılıyor ancak burada da versiyonu kaydediyoruz.
+      localStorage.setItem('app_version', APP_VERSION);
+      // Not: State'ler zaten INITIAL ile başlayacak çünkü aşağıda kontrol ediyoruz.
+    }
+  }, []);
+
   // Posts State
   const [posts, setPosts] = useState<BlogPost[]>(() => {
+    // Versiyon kontrolü: Eğer versiyon farklıysa yeni postları yükle
+    const savedVersion = localStorage.getItem('app_version');
+    if (savedVersion !== APP_VERSION) {
+      return INITIAL_POSTS;
+    }
     const saved = localStorage.getItem('blog_posts');
     return saved ? JSON.parse(saved) : INITIAL_POSTS;
   });
 
   // Site Content State
   const [siteContent, setSiteContent] = useState<SiteContent>(() => {
+    // Versiyon kontrolü: Eğer versiyon farklıysa yeni site içeriğini yükle (Video ve Biyografi için kritik)
+    const savedVersion = localStorage.getItem('app_version');
+    if (savedVersion !== APP_VERSION) {
+      return INITIAL_SITE_CONTENT;
+    }
+
     const saved = localStorage.getItem('site_content');
-    return saved ? JSON.parse(saved) : INITIAL_SITE_CONTENT;
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Eski veri yapısını yenisiyle birleştir (güvenlik için)
+      // Eğer eski veride 'videos' yoksa, INITIAL'dan al
+      return {
+        ...INITIAL_SITE_CONTENT,
+        ...parsed,
+        about: {
+          ...INITIAL_SITE_CONTENT.about,
+          ...parsed.about
+        },
+        videos: parsed.videos || INITIAL_SITE_CONTENT.videos
+      };
+    }
+    return INITIAL_SITE_CONTENT;
   });
 
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
