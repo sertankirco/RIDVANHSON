@@ -1,4 +1,9 @@
+
 import { BlogPost, SiteContent } from './types';
+
+// Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
+// eski veriyi silip yenisiyle güncelleyecektir.
+export const APP_VERSION = '1.9'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
