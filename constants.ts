@@ -10,7 +10,7 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
     "titleLine1": "Lojistik, Dış Ticaret ve",
     "titleHighlight": "Sen Ben Yok",
     "description": "1998'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
-    "imageUrl": "https://drive.google.com/file/d/1rzod-PavF4tg7x5at6OeRCTWyAR6iGbt/view?usp=drive_link",
+    "imageUrl": "https://drive.google.com/file/d/17DNJNkIeWvKIzxk0NFyxOUk-c1Ean4yO/view?usp=sharing",
     "experienceYears": "25+ Yıl"
   },
   "about": {
