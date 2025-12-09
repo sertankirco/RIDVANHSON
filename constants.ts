@@ -3,12 +3,12 @@ import { BlogPost, SiteContent } from './types';
 export const INITIAL_SITE_CONTENT: SiteContent = {
   personal: {
     name: "Rıdvan Haliloğlu",
-    title: "Gümrük Müşaviri & Eğitmen"
+    title: "Yetkilendirilmiş Gümrük Müşaviri & Eğitmen"
   },
   hero: {
     badge: "Mundoimex YK Başkanı",
     titleLine1: "Lojistik, Dış Ticaret ve",
-    titleHighlight: "Sen Ben Yok",
+    titleHighlight: "Geleceğin Gümrükleri",
     description: "1998'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
     imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop",
     experienceYears: "25+ Yıl"
