@@ -25,7 +25,8 @@ import {
   Github,
   Edit,
   Play,
-  Briefcase
+  Briefcase,
+  XCircle
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -78,6 +79,25 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   // Export State
   const [copied, setCopied] = useState(false);
 
+  // --- Reset Forms ---
+  const resetForm = () => {
+    setEditingId(null);
+    // Post fields
+    setNewPostTitle('');
+    setNewPostContent('');
+    setNewPostSummary('');
+    setNewPostImage('');
+    // Video fields
+    setVideoTitle('');
+    setVideoUrl('');
+    setVideoDesc('');
+    // Experience fields
+    setExpCompany('');
+    setExpRole('');
+    setExpPeriod('');
+    setExpDesc('');
+  };
+
   // --- Post Functions ---
   const handleDelete = (id: string) => {
     if (window.confirm('Bu yazıyı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.')) {
@@ -87,6 +107,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   };
 
   const handleEdit = (post: BlogPost) => {
+    resetForm();
     setEditingId(post.id);
     setNewPostTitle(post.title);
     setNewPostContent(post.content);
@@ -150,9 +171,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
      onUpdateSiteContent(updatedContent);
      setEditContent(updatedContent);
      
-     setVideoTitle('');
-     setVideoUrl('');
-     setVideoDesc('');
+     resetForm();
      alert('Video eklendi!');
   };
 
@@ -167,28 +186,46 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   };
 
   // --- Experience Functions ---
-  const handleAddExperience = (e: React.FormEvent) => {
+  const handleExperienceSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newExp: Experience = {
-      id: Date.now().toString(),
-      company: expCompany,
-      role: expRole,
-      period: expPeriod,
-      description: expDesc
-    };
+    
+    if (editingId) {
+        // UPDATE Logic
+        const updatedExpList = (siteContent.experience || []).map(exp => 
+            exp.id === editingId 
+            ? { ...exp, company: expCompany, role: expRole, period: expPeriod, description: expDesc }
+            : exp
+        );
+        const updatedContent = { ...siteContent, experience: updatedExpList };
+        onUpdateSiteContent(updatedContent);
+        setEditContent(updatedContent);
+        alert('Deneyim başarıyla güncellendi!');
+    } else {
+        // ADD Logic
+        const newExp: Experience = {
+            id: Date.now().toString(),
+            company: expCompany,
+            role: expRole,
+            period: expPeriod,
+            description: expDesc
+        };
+        const currentExp = siteContent.experience || [];
+        const updatedContent = { ...siteContent, experience: [newExp, ...currentExp] };
+        onUpdateSiteContent(updatedContent);
+        setEditContent(updatedContent);
+        alert('Deneyim eklendi!');
+    }
+    resetForm();
+  };
 
-    const currentExp = siteContent.experience || [];
-    // En başa ekleyelim ki en güncel en üstte olsun
-    const updatedContent = { ...siteContent, experience: [newExp, ...currentExp] };
-
-    onUpdateSiteContent(updatedContent);
-    setEditContent(updatedContent);
-
-    setExpCompany('');
-    setExpRole('');
-    setExpPeriod('');
-    setExpDesc('');
-    alert('Deneyim eklendi!');
+  const handleEditExperience = (exp: Experience) => {
+    setEditingId(exp.id);
+    setExpCompany(exp.company);
+    setExpRole(exp.role);
+    setExpPeriod(exp.period);
+    setExpDesc(exp.description);
+    // Scroll to top of the form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDeleteExperience = (id: string) => {
@@ -198,6 +235,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
        const updatedContent = { ...siteContent, experience: updatedExp };
        onUpdateSiteContent(updatedContent);
        setEditContent(updatedContent);
+       
+       // If deleting the currently editing item, reset form
+       if (editingId === id) resetForm();
     }
  };
 
@@ -238,14 +278,6 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const resetForm = () => {
-    setEditingId(null);
-    setNewPostTitle('');
-    setNewPostContent('');
-    setNewPostSummary('');
-    setNewPostImage('');
-  };
-
   const filteredPosts = posts.filter(post => 
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -284,28 +316,28 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
             Yeni Yazı Ekle
           </button>
           <button 
-            onClick={() => setActiveTab('videos')}
+            onClick={() => { setActiveTab('videos'); resetForm(); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'videos' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
           >
             <Play className="w-5 h-5" />
             Videolar
           </button>
           <button 
-            onClick={() => setActiveTab('experience')}
+            onClick={() => { setActiveTab('experience'); resetForm(); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'experience' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
           >
             <Briefcase className="w-5 h-5" />
             Kariyer
           </button>
           <button 
-            onClick={() => setActiveTab('settings')}
+            onClick={() => { setActiveTab('settings'); resetForm(); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'settings' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
           >
             <Settings className="w-5 h-5" />
             Site Ayarları
           </button>
           <button 
-            onClick={() => setActiveTab('export')}
+            onClick={() => { setActiveTab('export'); resetForm(); }}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'export' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:bg-purple-900 hover:text-white'}`}
           >
             <Code className="w-5 h-5" />
@@ -477,8 +509,10 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
             
             {/* Add New Experience Form */}
             <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-               <h3 className="text-lg font-bold text-slate-900 mb-4">Yeni Deneyim Ekle</h3>
-               <form onSubmit={handleAddExperience} className="space-y-4">
+               <h3 className="text-lg font-bold text-slate-900 mb-4">
+                 {editingId ? 'Deneyim Düzenle' : 'Yeni Deneyim Ekle'}
+               </h3>
+               <form onSubmit={handleExperienceSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-slate-700 mb-1">Şirket / Kurum</label>
@@ -525,8 +559,23 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                       placeholder="Kısa görev tanımı..."
                     />
                   </div>
-                  <div className="flex justify-end">
-                    <Button type="submit" icon={<Plus className="w-4 h-4" />}>Ekle</Button>
+                  <div className="flex justify-end gap-3">
+                    {editingId && (
+                      <Button 
+                        type="button" 
+                        variant="secondary" 
+                        onClick={resetForm}
+                        icon={<XCircle className="w-4 h-4" />}
+                      >
+                        Vazgeç
+                      </Button>
+                    )}
+                    <Button 
+                      type="submit" 
+                      icon={editingId ? <Save className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                    >
+                      {editingId ? 'Güncelle' : 'Ekle'}
+                    </Button>
                   </div>
                </form>
             </div>
@@ -537,7 +586,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                <div className="space-y-4">
                   {(siteContent.experience && siteContent.experience.length > 0) ? (
                     siteContent.experience.map(exp => (
-                      <div key={exp.id} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg border border-slate-100">
+                      <div key={exp.id} className={`flex items-center gap-4 p-4 bg-slate-50 rounded-lg border border-slate-100 ${editingId === exp.id ? 'ring-2 ring-blue-500 bg-blue-50' : ''}`}>
                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 shrink-0">
                             <Briefcase className="w-5 h-5 text-slate-500" />
                          </div>
@@ -549,12 +598,22 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                             <p className="text-blue-600 font-medium text-sm">{exp.role}</p>
                             <p className="text-slate-500 text-sm mt-1">{exp.description}</p>
                          </div>
-                         <button 
-                            onClick={() => handleDeleteExperience(exp.id)}
-                            className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
-                         >
-                            <Trash2 className="w-5 h-5" />
-                         </button>
+                         <div className="flex gap-2">
+                           <button 
+                              onClick={() => handleEditExperience(exp)}
+                              className="p-2 text-blue-600 hover:bg-blue-100 rounded-lg transition-colors"
+                              title="Düzenle"
+                           >
+                              <Edit className="w-5 h-5" />
+                           </button>
+                           <button 
+                              onClick={() => handleDeleteExperience(exp.id)}
+                              className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                              title="Sil"
+                           >
+                              <Trash2 className="w-5 h-5" />
+                           </button>
+                         </div>
                       </div>
                     ))
                   ) : (
