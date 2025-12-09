@@ -18,7 +18,11 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onClick }) => {
         <img 
           src={getValidImageUrl(post.imageUrl)} 
           alt={post.title} 
+          referrerPolicy="no-referrer"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(post.title)}&background=random&size=512`;
+          }}
         />
         <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
           {post.tags.slice(0, 2).map((tag, idx) => (

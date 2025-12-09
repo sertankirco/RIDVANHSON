@@ -16,7 +16,11 @@ import {
   Eye,
   TrendingUp,
   Settings,
-  Save
+  Save,
+  Code,
+  Copy,
+  Check,
+  Github
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -36,7 +40,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout, 
   onViewSite 
 }) => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'posts' | 'new' | 'settings'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'posts' | 'new' | 'settings' | 'export'>('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
 
   // New Post State
@@ -49,6 +53,9 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
   // Settings State (Local state for editing before saving)
   const [editContent, setEditContent] = useState<SiteContent>(siteContent);
+
+  // Export State
+  const [copied, setCopied] = useState(false);
 
   const handleDelete = (id: string) => {
     if (confirm('Bu yazıyı silmek istediğinize emin misiniz?')) {
@@ -94,6 +101,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     e.preventDefault();
     onUpdateSiteContent(editContent);
     alert('Site ayarları başarıyla güncellendi!');
+  };
+
+  const generateExportCode = () => {
+    return `import { BlogPost, SiteContent } from './types';
+
+export const INITIAL_SITE_CONTENT: SiteContent = ${JSON.stringify(siteContent, null, 2)};
+
+export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
+  };
+
+  const handleCopyCode = () => {
+    navigator.clipboard.writeText(generateExportCode());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const resetForm = () => {
@@ -146,6 +167,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           >
             <Settings className="w-5 h-5" />
             Site Ayarları
+          </button>
+          <button 
+            onClick={() => setActiveTab('export')}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'export' ? 'bg-purple-600 text-white' : 'text-slate-400 hover:bg-purple-900 hover:text-white'}`}
+          >
+            <Code className="w-5 h-5" />
+            Kod Üret / Yayınla
           </button>
         </nav>
 
@@ -201,7 +229,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 {posts.slice(0, 3).map(post => (
                   <div key={post.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
                     <div className="flex items-center gap-4">
-                      <img src={getValidImageUrl(post.imageUrl)} alt="" className="w-12 h-12 rounded object-cover" />
+                      <img 
+                        src={getValidImageUrl(post.imageUrl)} 
+                        alt="" 
+                        referrerPolicy="no-referrer"
+                        className="w-12 h-12 rounded object-cover" 
+                      />
                       <div>
                         <h4 className="font-medium text-slate-900">{post.title}</h4>
                         <p className="text-sm text-slate-500">{post.date}</p>
@@ -249,7 +282,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   {filteredPosts.map(post => (
                     <tr key={post.id} className="hover:bg-slate-50 transition-colors">
                       <td className="p-4 w-20">
-                        <img src={getValidImageUrl(post.imageUrl)} alt="" className="w-12 h-12 rounded object-cover" />
+                        <img 
+                          src={getValidImageUrl(post.imageUrl)} 
+                          alt="" 
+                          referrerPolicy="no-referrer"
+                          className="w-12 h-12 rounded object-cover" 
+                        />
                       </td>
                       <td className="p-4 font-medium text-slate-900">{post.title}</td>
                       <td className="p-4 text-slate-500 text-sm">{post.date}</td>
@@ -494,6 +532,61 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
             </form>
           </div>
+        )}
+
+        {activeTab === 'export' && (
+           <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
+             <div className="bg-purple-50 p-6 rounded-xl border border-purple-100 mb-8">
+               <h2 className="text-xl font-bold text-purple-900 mb-4 flex items-center">
+                 <Code className="w-6 h-6 mr-2" /> Değişiklikleri Kalıcı Hale Getirme
+               </h2>
+               <p className="text-purple-800 mb-4">
+                 Sitenizi Vercel veya GitHub üzerinde güncellediğinizde değişikliklerin (yeni yazılar, ayarlar vb.) kalıcı olması için aşağıdaki kodu 
+                 <strong> constants.ts</strong> dosyasına yapıştırmalısınız.
+               </p>
+               
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-purple-900 mt-4">
+                 <div className="bg-white p-4 rounded-lg border border-purple-100">
+                   <h3 className="font-bold mb-2 flex items-center"><Github className="w-4 h-4 mr-2"/> GitHub Sitesi Üzerinden</h3>
+                   <ol className="list-decimal list-inside space-y-1">
+                     <li>Kodu kopyalayın.</li>
+                     <li>GitHub'da projenizi açın.</li>
+                     <li><strong>constants.ts</strong> dosyasına gidin.</li>
+                     <li>Kalem ikonuna (Edit) basın.</li>
+                     <li>Eski içeriği silip yeni kodu yapıştırın.</li>
+                     <li>"Commit changes" butonuna basın.</li>
+                   </ol>
+                 </div>
+                 <div className="bg-white p-4 rounded-lg border border-purple-100">
+                   <h3 className="font-bold mb-2 flex items-center"><Code className="w-4 h-4 mr-2"/> VS Code (Bilgisayar) Üzerinden</h3>
+                   <ol className="list-decimal list-inside space-y-1">
+                     <li>Kodu kopyalayın.</li>
+                     <li>Proje klasöründeki <strong>constants.ts</strong> dosyasını açın.</li>
+                     <li>İçeriği tamamen değiştirin ve kaydedin.</li>
+                     <li>Terminalden <code>git add .</code>, <code>git commit -m "update"</code> ve <code>git push</code> komutlarını çalıştırın.</li>
+                   </ol>
+                 </div>
+               </div>
+             </div>
+
+             <div className="bg-slate-900 rounded-xl overflow-hidden shadow-2xl">
+               <div className="flex justify-between items-center p-4 bg-slate-800 border-b border-slate-700">
+                 <span className="text-slate-400 font-mono text-sm">constants.ts</span>
+                 <Button 
+                   onClick={handleCopyCode} 
+                   className={copied ? "!bg-green-600 !text-white" : "!bg-white !text-slate-900"}
+                   icon={copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                 >
+                   {copied ? 'Kopyalandı!' : 'Kodu Kopyala'}
+                 </Button>
+               </div>
+               <div className="p-4 overflow-x-auto">
+                 <pre className="text-green-400 font-mono text-sm whitespace-pre-wrap">
+                   {generateExportCode()}
+                 </pre>
+               </div>
+             </div>
+           </div>
         )}
       </main>
     </div>

@@ -184,7 +184,11 @@ export default function App() {
               <img 
                 src={getValidImageUrl(siteContent.hero.imageUrl)} 
                 alt={siteContent.personal.name} 
+                referrerPolicy="no-referrer"
                 className="relative w-full h-full object-cover rounded-full border-8 border-white shadow-2xl z-10"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(siteContent.personal.name)}&background=random&size=512`;
+                }}
               />
               <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg z-20 flex items-center gap-3 animate-fadeIn">
                 <div className="bg-blue-100 p-2 rounded-full text-blue-600">

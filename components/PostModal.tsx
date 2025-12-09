@@ -47,7 +47,11 @@ export const PostModal: React.FC<PostModalProps> = ({ post, isOpen, onClose }) =
           <img 
             src={getValidImageUrl(post.imageUrl)} 
             alt={post.title} 
+            referrerPolicy="no-referrer"
             className="w-full h-full object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(post.title)}&background=random&size=512`;
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
             <h1 className="text-3xl sm:text-4xl font-bold text-white shadow-sm leading-tight">
