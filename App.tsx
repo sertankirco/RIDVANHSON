@@ -211,7 +211,7 @@ export default function App() {
       </section>
 
       {/* About & Education Section */}
-      <section id="about" className="py-20 bg-slate-50">
+      <section id="about" className="py-20 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-16">
             <div>
@@ -257,7 +257,7 @@ export default function App() {
       </section>
 
       {/* Career Timeline */}
-      <section id="career" className="py-20 bg-white">
+      <section id="career" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Profesyonel Yolculuk</h2>
           <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
@@ -327,7 +327,7 @@ export default function App() {
       </section>
 
       {/* Videos Section */}
-      <section id="videos" className="py-20 bg-slate-900 text-white">
+      <section id="videos" className="py-20 bg-slate-900 text-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
            <div className="flex items-center gap-3 mb-12 justify-center md:justify-start">
              <div className="p-3 bg-red-600 rounded-lg">
@@ -373,7 +373,7 @@ export default function App() {
       </section>
 
       {/* Roles & Associations */}
-      <section id="roles" className="py-20 bg-slate-50">
+      <section id="roles" className="py-20 bg-slate-50 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Sektörel Görevler & Üyelikler</h2>
@@ -406,7 +406,7 @@ export default function App() {
       </section>
 
       {/* Blog Section */}
-      <section id="blog" className="py-20 bg-white">
+      <section id="blog" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-12">
             <div>
