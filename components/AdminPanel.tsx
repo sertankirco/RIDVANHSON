@@ -28,7 +28,9 @@ import {
   Briefcase,
   XCircle,
   ArrowUp,
-  ArrowDown
+  ArrowDown,
+  Image as ImageIcon,
+  AlertCircle
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -787,15 +789,26 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Görsel URL</label>
+                <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center">
+                  Görsel URL 
+                  <span className="ml-2 text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 flex items-center">
+                    <ImageIcon className="w-3 h-3 mr-1" /> Google Drive Destekli
+                  </span>
+                </label>
                 <input 
                   type="text" 
                   value={newPostImage}
                   onChange={(e) => setNewPostImage(e.target.value)}
-                  placeholder="https://..."
+                  placeholder="https://drive.google.com/..."
                   className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <p className="text-xs text-slate-400 mt-1">Boş bırakılırsa rastgele görsel atanır.</p>
+                <div className="mt-2 text-xs text-slate-500 bg-slate-50 p-2 rounded border border-slate-100 flex items-start">
+                   <AlertCircle className="w-4 h-4 mr-2 text-slate-400 shrink-0" />
+                   <div>
+                     <strong>İpucu:</strong> Google Drive linki kullanacaksanız, dosyanın paylaşım ayarlarını 
+                     <span className="text-slate-700 font-semibold"> "Bağlantıya sahip olan herkes"</span> (Public) olarak ayarlamalısınız.
+                   </div>
+                </div>
               </div>
 
               <div>
@@ -877,13 +890,21 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                 <h2 className="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Ana Sayfa (Hero) Alanı</h2>
                 <div className="space-y-4">
                    <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Profil Resmi URL</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center">
+                       Profil Resmi URL
+                       <span className="ml-2 text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100 flex items-center">
+                        <ImageIcon className="w-3 h-3 mr-1" /> Google Drive Destekli
+                      </span>
+                    </label>
                     <input 
                       type="text" 
                       value={editContent.hero.imageUrl}
                       onChange={(e) => setEditContent({...editContent, hero: {...editContent.hero, imageUrl: e.target.value}})}
                       className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
                     />
+                     <div className="mt-1 text-xs text-slate-500">
+                        Google Drive linki kullanacaksanız, dosya paylaşımını "Herkes" (Public) yapmayı unutmayın.
+                     </div>
                   </div>
                    <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">Üst Rozet Yazısı</label>
