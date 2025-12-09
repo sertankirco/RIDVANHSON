@@ -17,6 +17,14 @@ export interface Video {
   description?: string;
 }
 
+export interface Experience {
+  id: string;
+  company: string;
+  role: string;
+  period: string;
+  description: string;
+}
+
 export interface AIResponse {
   title: string;
   content: string;
@@ -43,4 +51,5 @@ export interface SiteContent {
     fullBiography: string; // Pencerede açılacak uzun yazı
   };
   videos: Video[]; // Videolar listesi
+  experience: Experience[]; // Kariyer/Deneyim listesi
 }

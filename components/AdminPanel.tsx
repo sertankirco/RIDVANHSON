@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { BlogPost, SiteContent, Video } from '../types';
+import { BlogPost, SiteContent, Video, Experience } from '../types';
 import { Button } from './Button';
 import { generateBlogContent } from '../services/geminiService';
 import { getValidImageUrl } from '../utils/image';
@@ -24,7 +24,8 @@ import {
   Check,
   Github,
   Edit,
-  Play
+  Play,
+  Briefcase
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -44,7 +45,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout, 
   onViewSite 
 }) => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'posts' | 'new' | 'videos' | 'settings' | 'export'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'posts' | 'new' | 'videos' | 'experience' | 'settings' | 'export'>('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
 
   // Editing State
@@ -60,6 +61,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [videoTitle, setVideoTitle] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [videoDesc, setVideoDesc] = useState('');
+
+  // Experience Form State
+  const [expCompany, setExpCompany] = useState('');
+  const [expRole, setExpRole] = useState('');
+  const [expPeriod, setExpPeriod] = useState('');
+  const [expDesc, setExpDesc] = useState('');
 
   // AI State
   const [aiLoading, setAiLoading] = useState(false);
@@ -137,14 +144,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
        description: videoDesc
      };
      
-     // Videolar SiteContent içinde saklanıyor
      const currentVideos = siteContent.videos || [];
      const updatedContent = { ...siteContent, videos: [...currentVideos, newVideo] };
      
      onUpdateSiteContent(updatedContent);
-     setEditContent(updatedContent); // Settings state'ini de güncelle
+     setEditContent(updatedContent);
      
-     // Formu temizle
      setVideoTitle('');
      setVideoUrl('');
      setVideoDesc('');
@@ -160,6 +165,42 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         setEditContent(updatedContent);
      }
   };
+
+  // --- Experience Functions ---
+  const handleAddExperience = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newExp: Experience = {
+      id: Date.now().toString(),
+      company: expCompany,
+      role: expRole,
+      period: expPeriod,
+      description: expDesc
+    };
+
+    const currentExp = siteContent.experience || [];
+    // En başa ekleyelim ki en güncel en üstte olsun
+    const updatedContent = { ...siteContent, experience: [newExp, ...currentExp] };
+
+    onUpdateSiteContent(updatedContent);
+    setEditContent(updatedContent);
+
+    setExpCompany('');
+    setExpRole('');
+    setExpPeriod('');
+    setExpDesc('');
+    alert('Deneyim eklendi!');
+  };
+
+  const handleDeleteExperience = (id: string) => {
+    if (window.confirm('Bu deneyimi silmek istediğinize emin misiniz?')) {
+       const currentExp = siteContent.experience || [];
+       const updatedExp = currentExp.filter(e => e.id !== id);
+       const updatedContent = { ...siteContent, experience: updatedExp };
+       onUpdateSiteContent(updatedContent);
+       setEditContent(updatedContent);
+    }
+ };
+
 
   const handleAIGenerate = async () => {
     if (!aiTopic) return;
@@ -250,6 +291,13 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
             Videolar
           </button>
           <button 
+            onClick={() => setActiveTab('experience')}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'experience' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+          >
+            <Briefcase className="w-5 h-5" />
+            Kariyer
+          </button>
+          <button 
             onClick={() => setActiveTab('settings')}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'settings' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
           >
@@ -300,11 +348,10 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-slate-500 text-sm font-medium">Site Durumu</h3>
-                  <Globe className="w-5 h-5 text-purple-600" />
+                  <h3 className="text-slate-500 text-sm font-medium">Kariyer Kaydı</h3>
+                  <Briefcase className="w-5 h-5 text-green-600" />
                 </div>
-                <p className="text-lg font-bold text-slate-900">Yayında</p>
-                <p className="text-xs text-slate-400 mt-2">Son güncelleme: Bugün</p>
+                <p className="text-3xl font-bold text-slate-900">{(siteContent.experience || []).length}</p>
               </div>
             </div>
 
@@ -416,6 +463,102 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                     ))
                   ) : (
                     <p className="text-slate-500 text-center py-4">Henüz video eklenmemiş.</p>
+                  )}
+               </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'experience' && (
+          <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
+             <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-slate-900">Profesyonel Yolculuk Yönetimi</h1>
+            </div>
+            
+            {/* Add New Experience Form */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+               <h3 className="text-lg font-bold text-slate-900 mb-4">Yeni Deneyim Ekle</h3>
+               <form onSubmit={handleAddExperience} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-1">Şirket / Kurum</label>
+                      <input 
+                        required
+                        type="text" 
+                        value={expCompany}
+                        onChange={(e) => setExpCompany(e.target.value)}
+                        className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Örn: Mundoimex"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-1">Dönem</label>
+                      <input 
+                        required
+                        type="text" 
+                        value={expPeriod}
+                        onChange={(e) => setExpPeriod(e.target.value)}
+                        className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Örn: 2016 - Günümüz"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Pozisyon / Unvan</label>
+                    <input 
+                      required
+                      type="text" 
+                      value={expRole}
+                      onChange={(e) => setExpRole(e.target.value)}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Örn: Yönetim Kurulu Başkanı"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Açıklama</label>
+                    <input 
+                      required
+                      type="text" 
+                      value={expDesc}
+                      onChange={(e) => setExpDesc(e.target.value)}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Kısa görev tanımı..."
+                    />
+                  </div>
+                  <div className="flex justify-end">
+                    <Button type="submit" icon={<Plus className="w-4 h-4" />}>Ekle</Button>
+                  </div>
+               </form>
+            </div>
+
+            {/* Existing Experience List */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+               <h3 className="text-lg font-bold text-slate-900 mb-4">Mevcut Deneyimler</h3>
+               <div className="space-y-4">
+                  {(siteContent.experience && siteContent.experience.length > 0) ? (
+                    siteContent.experience.map(exp => (
+                      <div key={exp.id} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg border border-slate-100">
+                         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-slate-200 shrink-0">
+                            <Briefcase className="w-5 h-5 text-slate-500" />
+                         </div>
+                         <div className="flex-1">
+                            <div className="flex justify-between items-start">
+                              <h4 className="font-bold text-slate-900">{exp.company}</h4>
+                              <span className="text-xs font-mono bg-slate-200 px-2 py-1 rounded text-slate-600">{exp.period}</span>
+                            </div>
+                            <p className="text-blue-600 font-medium text-sm">{exp.role}</p>
+                            <p className="text-slate-500 text-sm mt-1">{exp.description}</p>
+                         </div>
+                         <button 
+                            onClick={() => handleDeleteExperience(exp.id)}
+                            className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
+                         >
+                            <Trash2 className="w-5 h-5" />
+                         </button>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-slate-500 text-center py-4">Henüz deneyim eklenmemiş.</p>
                   )}
                </div>
             </div>

@@ -3,7 +3,7 @@ import { BlogPost, SiteContent } from './types';
 
 // Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
 // eski veriyi silip yenisiyle güncelleyecektir.
-export const APP_VERSION = '1.5'; 
+export const APP_VERSION = '1.6'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   personal: {
@@ -47,6 +47,36 @@ Uzmanlık alanları arasında Yetkilendirilmiş Gümrük Müşavirliği, Gümrü
       title: 'Gümrük Müşavirliği Mesleğinin Geleceği',
       url: 'https://www.youtube.com/watch?v=dummy2',
       description: 'Genç meslektaşlarımız için kariyer tavsiyeleri.'
+    }
+  ],
+  experience: [
+    {
+      id: '1',
+      company: 'Mundoimex',
+      role: 'Kurucu Ortak & Yönetim Kurulu Başkanı',
+      period: '2016 - Günümüz',
+      description: 'Gümrük Müşavirliği ve Global Lojistik alanında yenilikçi çözümler sunan şirketin liderliği.'
+    },
+    {
+      id: '2',
+      company: 'DHL Global Forwarding',
+      role: 'Gümrük Operasyonları Müdürü',
+      period: '2011 - 2015',
+      description: 'Global bir devde gümrük operasyonlarının yönetimi ve süreç optimizasyonu.'
+    },
+    {
+      id: '3',
+      company: 'Onel Şirketler Grubu',
+      role: 'Gümrük Müşaviri & Yönetici',
+      period: '2000 - 2011',
+      description: 'Çeşitli şehirlerde şube kurulumları ve operasyonel yönetim.'
+    },
+    {
+      id: '4',
+      company: 'Mesleki Başlangıç',
+      role: 'Gümrük Müşavir Yardımcısı',
+      period: '1998 - 2000',
+      description: 'Sektöre giriş ve ilk deneyimler.'
     }
   ]
 };

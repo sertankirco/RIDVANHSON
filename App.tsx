@@ -34,9 +34,7 @@ export default function App() {
     const savedVersion = localStorage.getItem('app_version');
     if (savedVersion !== APP_VERSION) {
       // Eğer versiyon değişmişse, kullanıcıya yeni yapıyı göstermek için versiyonu güncelle
-      // State başlatılırken (aşağıda) bu kontrol yapılıyor ancak burada da versiyonu kaydediyoruz.
       localStorage.setItem('app_version', APP_VERSION);
-      // Not: State'ler zaten INITIAL ile başlayacak çünkü aşağıda kontrol ediyoruz.
     }
   }, []);
 
@@ -53,7 +51,7 @@ export default function App() {
 
   // Site Content State
   const [siteContent, setSiteContent] = useState<SiteContent>(() => {
-    // Versiyon kontrolü: Eğer versiyon farklıysa yeni site içeriğini yükle (Video ve Biyografi için kritik)
+    // Versiyon kontrolü: Eğer versiyon farklıysa yeni site içeriğini yükle
     const savedVersion = localStorage.getItem('app_version');
     if (savedVersion !== APP_VERSION) {
       return INITIAL_SITE_CONTENT;
@@ -63,7 +61,6 @@ export default function App() {
     if (saved) {
       const parsed = JSON.parse(saved);
       // Eski veri yapısını yenisiyle birleştir (güvenlik için)
-      // Eğer eski veride 'videos' yoksa, INITIAL'dan al
       return {
         ...INITIAL_SITE_CONTENT,
         ...parsed,
@@ -71,7 +68,8 @@ export default function App() {
           ...INITIAL_SITE_CONTENT.about,
           ...parsed.about
         },
-        videos: parsed.videos || INITIAL_SITE_CONTENT.videos
+        videos: parsed.videos || INITIAL_SITE_CONTENT.videos,
+        experience: parsed.experience || INITIAL_SITE_CONTENT.experience
       };
     }
     return INITIAL_SITE_CONTENT;
@@ -292,71 +290,31 @@ export default function App() {
         </div>
       </section>
 
-      {/* Career Timeline */}
+      {/* Career Timeline - DYNAMIC */}
       <section id="career" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Profesyonel Yolculuk</h2>
           <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
             
-            {/* Item 1 */}
-            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 group-[.is-active]:bg-blue-600 text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                <Briefcase className="w-5 h-5" />
-              </div>
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between space-x-2 mb-1">
-                  <h3 className="font-bold text-slate-900">Mundoimex</h3>
-                  <time className="font-mono italic text-sm text-slate-500">2016 - Günümüz</time>
+            {(siteContent.experience || []).map((exp, index) => (
+              <div key={exp.id} className={`relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group ${index === 0 ? 'is-active' : ''}`}>
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-300 group-[.is-active]:bg-blue-600 text-slate-500 group-[.is-active]:text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10`}>
+                  <Briefcase className="w-5 h-5" />
                 </div>
-                <div className="text-blue-600 font-medium mb-2">Kurucu Ortak & Yönetim Kurulu Başkanı</div>
-                <p className="text-slate-600 text-sm">Gümrük Müşavirliği ve Global Lojistik alanında yenilikçi çözümler sunan şirketin liderliği.</p>
+                <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-center justify-between space-x-2 mb-1">
+                    <h3 className="font-bold text-slate-900">{exp.company}</h3>
+                    <time className="font-mono italic text-sm text-slate-500">{exp.period}</time>
+                  </div>
+                  <div className="text-blue-600 font-medium mb-2">{exp.role}</div>
+                  <p className="text-slate-600 text-sm">{exp.description}</p>
+                </div>
               </div>
-            </div>
+            ))}
 
-            {/* Item 2 */}
-            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-white border-slate-300 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                <Briefcase className="w-5 h-5" />
-              </div>
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between space-x-2 mb-1">
-                  <h3 className="font-bold text-slate-900">DHL Global Forwarding</h3>
-                  <time className="font-mono italic text-sm text-slate-500">2011 - 2015</time>
-                </div>
-                <div className="text-blue-600 font-medium mb-2">Gümrük Operasyonları Müdürü</div>
-                <p className="text-slate-600 text-sm">Global bir devde gümrük operasyonlarının yönetimi ve süreç optimizasyonu.</p>
-              </div>
-            </div>
-
-            {/* Item 3 */}
-            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-white border-slate-300 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                <Briefcase className="w-5 h-5" />
-              </div>
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between space-x-2 mb-1">
-                  <h3 className="font-bold text-slate-900">Onel Şirketler Grubu</h3>
-                  <time className="font-mono italic text-sm text-slate-500">2000 - 2011</time>
-                </div>
-                <div className="text-blue-600 font-medium mb-2">Gümrük Müşaviri & Yönetici</div>
-                <p className="text-slate-600 text-sm">Çeşitli şehirlerde şube kurulumları ve operasyonel yönetim.</p>
-              </div>
-            </div>
-
-             {/* Item 4 */}
-             <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-white border-slate-300 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                <Briefcase className="w-5 h-5" />
-              </div>
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between space-x-2 mb-1">
-                  <h3 className="font-bold text-slate-900">Mesleki Başlangıç</h3>
-                  <time className="font-mono italic text-sm text-slate-500">1998 - 2000</time>
-                </div>
-                <div className="text-blue-600 font-medium mb-2">Gümrük Müşavir Yardımcısı</div>
-                <p className="text-slate-600 text-sm">Sektöre giriş ve ilk deneyimler.</p>
-              </div>
-            </div>
+            {(!siteContent.experience || siteContent.experience.length === 0) && (
+              <div className="text-center text-slate-500 py-10">Henüz kariyer bilgisi eklenmemiş.</div>
+            )}
 
           </div>
         </div>
