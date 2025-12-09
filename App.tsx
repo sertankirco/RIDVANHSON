@@ -64,6 +64,10 @@ export default function App() {
       return {
         ...INITIAL_SITE_CONTENT,
         ...parsed,
+        hero: {
+            ...INITIAL_SITE_CONTENT.hero,
+            ...(parsed.hero || {})
+        },
         about: {
           ...INITIAL_SITE_CONTENT.about,
           ...parsed.about
@@ -225,7 +229,8 @@ export default function App() {
                 src={getValidImageUrl(siteContent.hero.imageUrl)} 
                 alt={siteContent.personal.name} 
                 referrerPolicy="no-referrer"
-                className="relative w-full h-full object-cover rounded-full border-8 border-white shadow-2xl z-10"
+                className="relative w-full h-full object-cover rounded-full border-8 border-white shadow-2xl z-10 transition-all duration-300"
+                style={{ objectPosition: `center ${siteContent.hero.imagePositionY ?? 50}%` }}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(siteContent.personal.name)}&background=random&size=512`;
                 }}

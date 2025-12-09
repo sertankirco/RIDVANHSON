@@ -43,6 +43,7 @@ export interface SiteContent {
     titleHighlight: string;
     description: string;
     imageUrl: string;
+    imagePositionY?: number; // 0 to 100 percentage for object-position-y
     experienceYears: string;
   };
   about: {

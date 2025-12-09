@@ -3,7 +3,7 @@ import { BlogPost, SiteContent } from './types';
 
 // Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
 // eski veriyi silip yenisiyle güncelleyecektir.
-export const APP_VERSION = '1.6'; 
+export const APP_VERSION = '1.7'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   personal: {
@@ -16,6 +16,7 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
     titleHighlight: "Sen Ben Yok",
     description: "1998'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
     imageUrl: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1000&auto=format&fit=crop",
+    imagePositionY: 50, // Varsayılan olarak ortala
     experienceYears: "25+ Yıl"
   },
   about: {

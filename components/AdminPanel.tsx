@@ -930,7 +930,46 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                       onChange={(e) => setEditContent({...editContent, hero: {...editContent.hero, imageUrl: e.target.value}})}
                       className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
                     />
-                     <ImagePreview url={editContent.hero.imageUrl} />
+                     
+                     {/* Circular Position Adjuster for Hero Image */}
+                     <div className="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-lg">
+                        <div className="flex justify-between items-center mb-2">
+                           <label className="text-sm font-medium text-slate-700">Fotoğraf Konumu (Yukarı - Aşağı)</label>
+                           <span className="text-xs font-mono bg-white px-2 py-1 rounded border border-slate-200 text-slate-600">
+                             %{editContent.hero.imagePositionY ?? 50}
+                           </span>
+                        </div>
+                        <input 
+                          type="range" 
+                          min="0" 
+                          max="100" 
+                          value={editContent.hero.imagePositionY ?? 50} 
+                          onChange={(e) => setEditContent({...editContent, hero: {...editContent.hero, imagePositionY: parseInt(e.target.value)}})}
+                          className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                        />
+                        <div className="flex justify-between text-xs text-slate-400 mt-1 px-1">
+                          <span>Üst</span>
+                          <span>Orta</span>
+                          <span>Alt</span>
+                        </div>
+
+                        {/* Live Preview for Circular Image */}
+                        <div className="mt-4 flex flex-col items-center">
+                          <span className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wide">Canlı Önizleme</span>
+                          <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden relative bg-slate-200">
+                            <img 
+                              src={getValidImageUrl(editContent.hero.imageUrl)} 
+                              alt="Önizleme"
+                              className="w-full h-full object-cover transition-all duration-200"
+                              style={{ objectPosition: `center ${editContent.hero.imagePositionY ?? 50}%` }}
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+                          <p className="text-xs text-slate-400 mt-2 text-center max-w-xs">
+                            Sürgüyü kullanarak fotoğrafı daire içine tam oturacak şekilde ayarlayabilirsiniz.
+                          </p>
+                        </div>
+                     </div>
                   </div>
                    <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1">Üst Rozet Yazısı</label>
