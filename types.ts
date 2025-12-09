@@ -37,6 +37,12 @@ export interface SiteContent {
     name: string;
     title: string;
   };
+  contact: {
+    email: string;
+    phone: string;
+    address: string;
+    mapUrl?: string; // Google Maps link
+  };
   socialMedia: {
     twitter?: string; // X
     facebook?: string;

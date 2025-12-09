@@ -27,7 +27,11 @@ import {
   Facebook,
   Instagram,
   Youtube,
-  Twitter
+  Twitter,
+  Mail,
+  MapPin,
+  Phone,
+  Send
 } from 'lucide-react';
 
 type ViewMode = 'public' | 'login' | 'admin';
@@ -68,18 +72,10 @@ export default function App() {
       return {
         ...INITIAL_SITE_CONTENT,
         ...parsed,
-        hero: {
-            ...INITIAL_SITE_CONTENT.hero,
-            ...(parsed.hero || {})
-        },
-        about: {
-          ...INITIAL_SITE_CONTENT.about,
-          ...(parsed.about || {})
-        },
-        socialMedia: {
-          ...INITIAL_SITE_CONTENT.socialMedia,
-          ...(parsed.socialMedia || {})
-        },
+        hero: { ...INITIAL_SITE_CONTENT.hero, ...(parsed.hero || {}) },
+        about: { ...INITIAL_SITE_CONTENT.about, ...(parsed.about || {}) },
+        socialMedia: { ...INITIAL_SITE_CONTENT.socialMedia, ...(parsed.socialMedia || {}) },
+        contact: { ...INITIAL_SITE_CONTENT.contact, ...(parsed.contact || {}) },
         videos: parsed.videos || INITIAL_SITE_CONTENT.videos,
         experience: parsed.experience || INITIAL_SITE_CONTENT.experience
       };
@@ -92,6 +88,9 @@ export default function App() {
   const [isBioModalOpen, setIsBioModalOpen] = useState(false);
   const [isComposerOpen, setIsComposerOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // Contact Form State
+  const [contactFormStatus, setContactFormStatus] = useState<'idle' | 'sending' | 'success'>('idle');
   
   // Routing State
   const [viewMode, setViewMode] = useState<ViewMode>('public');
@@ -125,6 +124,17 @@ export default function App() {
       element.scrollIntoView({ behavior: 'smooth' });
       setMobileMenuOpen(false);
     }
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setContactFormStatus('sending');
+    // Simulate sending
+    setTimeout(() => {
+      setContactFormStatus('success');
+      setTimeout(() => setContactFormStatus('idle'), 3000);
+      (e.target as HTMLFormElement).reset();
+    }, 1500);
   };
 
   // Scroll to top when view changes
@@ -172,6 +182,7 @@ export default function App() {
             <button onClick={() => scrollToSection('career')} className="hover:text-blue-600 transition-colors">Kariyer</button>
             <button onClick={() => scrollToSection('videos')} className="hover:text-blue-600 transition-colors">Videolarım</button>
             <button onClick={() => scrollToSection('blog')} className="hover:text-blue-600 transition-colors">Blog</button>
+            <button onClick={() => scrollToSection('contact')} className="hover:text-blue-600 transition-colors">İletişim</button>
             <Button 
               onClick={() => setIsComposerOpen(true)}
               icon={<Sparkles className="w-4 h-4" />}
@@ -199,6 +210,7 @@ export default function App() {
               <button onClick={() => scrollToSection('career')} className="text-left py-2 hover:text-blue-600">Kariyer</button>
               <button onClick={() => scrollToSection('videos')} className="text-left py-2 hover:text-blue-600">Videolarım</button>
               <button onClick={() => scrollToSection('blog')} className="text-left py-2 hover:text-blue-600">Blog</button>
+              <button onClick={() => scrollToSection('contact')} className="text-left py-2 hover:text-blue-600">İletişim</button>
               <Button onClick={() => { setIsComposerOpen(true); setMobileMenuOpen(false); }} className="w-full justify-center !bg-slate-900">
                 <Sparkles className="w-4 h-4 mr-2" /> Yazı Oluştur
               </Button>
@@ -443,8 +455,113 @@ export default function App() {
         </div>
       </section>
 
+      {/* Contact Section */}
+      <section id="contact" className="py-20 bg-slate-50 scroll-mt-24 border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-16">
+            {/* Contact Info */}
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">İletişime Geçin</h2>
+              <p className="text-slate-600 mb-8 leading-relaxed">
+                Gümrük, dış ticaret veya lojistik süreçlerinizle ilgili danışmanlık almak, eğitim talepleri oluşturmak veya tanışmak için aşağıdaki kanallardan bana ulaşabilirsiniz.
+              </p>
+              
+              <div className="space-y-6">
+                 {siteContent.contact?.email && (
+                    <div className="flex items-start gap-4">
+                      <div className="bg-white p-3 rounded-lg border border-slate-200 text-blue-600 shadow-sm shrink-0">
+                         <Mail className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900">E-Posta</h4>
+                        <a href={`mailto:${siteContent.contact.email}`} className="text-slate-600 hover:text-blue-600 transition-colors">
+                          {siteContent.contact.email}
+                        </a>
+                      </div>
+                    </div>
+                 )}
+                 
+                 {siteContent.contact?.phone && (
+                    <div className="flex items-start gap-4">
+                      <div className="bg-white p-3 rounded-lg border border-slate-200 text-green-600 shadow-sm shrink-0">
+                         <Phone className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900">Telefon</h4>
+                        <a href={`tel:${siteContent.contact.phone.replace(/\s+/g, '')}`} className="text-slate-600 hover:text-blue-600 transition-colors">
+                          {siteContent.contact.phone}
+                        </a>
+                      </div>
+                    </div>
+                 )}
+
+                 {siteContent.contact?.address && (
+                    <div className="flex items-start gap-4">
+                      <div className="bg-white p-3 rounded-lg border border-slate-200 text-red-600 shadow-sm shrink-0">
+                         <MapPin className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-slate-900">Adres</h4>
+                        <p className="text-slate-600 text-sm leading-relaxed mb-2">
+                          {siteContent.contact.address}
+                        </p>
+                        {siteContent.contact.mapUrl && (
+                          <a 
+                            href={siteContent.contact.mapUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-xs font-bold text-blue-600 hover:underline flex items-center"
+                          >
+                             Haritada Görüntüle <ArrowRight className="w-3 h-3 ml-1" />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                 )}
+              </div>
+            </div>
+
+            {/* Contact Form */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+              <h3 className="text-xl font-bold text-slate-900 mb-6">Mesaj Gönderin</h3>
+              <form onSubmit={handleContactSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                     <label className="block text-sm font-medium text-slate-700 mb-1">Adınız Soyadınız</label>
+                     <input required type="text" className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Örn: Ahmet Yılmaz" />
+                  </div>
+                  <div>
+                     <label className="block text-sm font-medium text-slate-700 mb-1">E-Posta Adresiniz</label>
+                     <input required type="email" className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500" placeholder="ornek@sirket.com" />
+                  </div>
+                </div>
+                <div>
+                   <label className="block text-sm font-medium text-slate-700 mb-1">Konu</label>
+                   <input required type="text" className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500" placeholder="Örn: Danışmanlık Talebi" />
+                </div>
+                <div>
+                   <label className="block text-sm font-medium text-slate-700 mb-1">Mesajınız</label>
+                   <textarea required rows={4} className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none" placeholder="Mesajınızı buraya yazın..."></textarea>
+                </div>
+                
+                <Button 
+                   type="submit" 
+                   className="w-full justify-center !bg-slate-900 hover:!bg-slate-800"
+                   disabled={contactFormStatus !== 'idle'}
+                   icon={contactFormStatus === 'success' ? <div className="text-green-400">✓</div> : <Send className="w-4 h-4" />}
+                >
+                  {contactFormStatus === 'idle' && 'Gönder'}
+                  {contactFormStatus === 'sending' && 'Gönderiliyor...'}
+                  {contactFormStatus === 'success' && 'Mesajınız İletildi!'}
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-slate-50 border-t border-slate-200 py-12">
+      <footer className="bg-white border-t border-slate-200 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
@@ -456,27 +573,27 @@ export default function App() {
             
             <div className="flex gap-4">
               {siteContent.socialMedia?.twitter && (
-                <a href={siteContent.socialMedia.twitter} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-slate-900 hover:text-white transition-all" title="X (Twitter)">
+                <a href={siteContent.socialMedia.twitter} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-100 rounded-full text-slate-600 hover:bg-slate-900 hover:text-white transition-all" title="X (Twitter)">
                   <Twitter className="w-5 h-5" />
                 </a>
               )}
               {siteContent.socialMedia?.facebook && (
-                <a href={siteContent.socialMedia.facebook} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-blue-600 hover:text-white transition-all" title="Facebook">
+                <a href={siteContent.socialMedia.facebook} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-100 rounded-full text-slate-600 hover:bg-blue-600 hover:text-white transition-all" title="Facebook">
                   <Facebook className="w-5 h-5" />
                 </a>
               )}
               {siteContent.socialMedia?.instagram && (
-                <a href={siteContent.socialMedia.instagram} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-pink-600 hover:text-white transition-all" title="Instagram">
+                <a href={siteContent.socialMedia.instagram} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-100 rounded-full text-slate-600 hover:bg-pink-600 hover:text-white transition-all" title="Instagram">
                   <Instagram className="w-5 h-5" />
                 </a>
               )}
               {siteContent.socialMedia?.youtube && (
-                <a href={siteContent.socialMedia.youtube} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-red-600 hover:text-white transition-all" title="YouTube">
+                <a href={siteContent.socialMedia.youtube} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-100 rounded-full text-slate-600 hover:bg-red-600 hover:text-white transition-all" title="YouTube">
                   <Youtube className="w-5 h-5" />
                 </a>
               )}
                {siteContent.socialMedia?.linkedin && (
-                <a href={siteContent.socialMedia.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-blue-700 hover:text-white transition-all" title="LinkedIn">
+                <a href={siteContent.socialMedia.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-100 rounded-full text-slate-600 hover:bg-blue-700 hover:text-white transition-all" title="LinkedIn">
                   <Linkedin className="w-5 h-5" />
                 </a>
               )}

@@ -3,12 +3,18 @@ import { BlogPost, SiteContent } from './types';
 
 // Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
 // eski veriyi silip yenisiyle güncelleyecektir.
-export const APP_VERSION = '2.1'; 
+export const APP_VERSION = '2.3'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
     "name": "Rıdvan Haliloğlu",
     "title": "Yetkilendirilmiş Gümrük Müşaviri & Eğitmen"
+  },
+  "contact": {
+    "email": "info@mundoimex.com",
+    "phone": "+90 212 123 45 67",
+    "address": "Ataköy 7-8-9-10. Kısım Mah. Çobançeşme E-5 Yan Yol Cad. No:16/1 B Blok Kat:8 D:142 Ataköy Towers, Bakırköy / İSTANBUL",
+    "mapUrl": "https://maps.google.com"
   },
   "socialMedia": {
     "linkedin": "https://linkedin.com",
@@ -36,15 +42,15 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   "videos": [
     {
       "id": "1",
-      "title": "Dış Ticarette Dijitalleşme Vizyonu",
-      "url": "https://www.youtube.com/watch?v=dummy1",
-      "description": "Lojistik sektöründe dijital dönüşüm üzerine değerlendirmeler."
+      "title": "Küresel Tedarik Zinciri ve Lojistik",
+      "url": "https://www.youtube.com/watch?v=esw88t0h-yA", 
+      "description": "Lojistik sektöründe tedarik zinciri yönetiminin önemi üzerine genel bir bakış."
     },
     {
       "id": "2",
-      "title": "Gümrük Müşavirliği Mesleğinin Geleceği",
-      "url": "https://www.youtube.com/watch?v=dummy2",
-      "description": "Genç meslektaşlarımız için kariyer tavsiyeleri."
+      "title": "Gümrük Nedir?",
+      "url": "https://www.youtube.com/watch?v=P4t8r8c6jI0",
+      "description": "Uluslararası ticarette gümrüklerin rolü ve işleyişi."
     }
   ],
   "experience": [

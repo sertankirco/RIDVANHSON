@@ -33,7 +33,10 @@ import {
   Facebook,
   Instagram,
   Youtube,
-  Linkedin
+  Linkedin,
+  MapPin,
+  Phone,
+  Mail
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -913,6 +916,58 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                       value={editContent.personal.title}
                       onChange={(e) => setEditContent({...editContent, personal: {...editContent.personal, title: e.target.value}})}
                       className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Info Section */}
+              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <h2 className="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">İletişim Bilgileri</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                   <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <Mail className="w-4 h-4 text-blue-600" /> E-Posta Adresi
+                    </label>
+                    <input 
+                      type="email" 
+                      value={editContent.contact?.email || ''}
+                      onChange={(e) => setEditContent({...editContent, contact: {...(editContent.contact || { phone: '', address: '', mapUrl: '' }), email: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <Phone className="w-4 h-4 text-green-600" /> Telefon Numarası
+                    </label>
+                    <input 
+                      type="text" 
+                      value={editContent.contact?.phone || ''}
+                      onChange={(e) => setEditContent({...editContent, contact: {...(editContent.contact || { email: '', address: '', mapUrl: '' }), phone: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <MapPin className="w-4 h-4 text-red-600" /> Adres
+                    </label>
+                    <textarea 
+                      rows={2}
+                      value={editContent.contact?.address || ''}
+                      onChange={(e) => setEditContent({...editContent, contact: {...(editContent.contact || { email: '', phone: '', mapUrl: '' }), address: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                    />
+                  </div>
+                   <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-slate-700 mb-1 flex items-center gap-2">
+                       <MapPin className="w-4 h-4 text-slate-500" /> Google Haritalar Linki
+                    </label>
+                    <input 
+                      type="text" 
+                      value={editContent.contact?.mapUrl || ''}
+                      onChange={(e) => setEditContent({...editContent, contact: {...(editContent.contact || { email: '', phone: '', address: '' }), mapUrl: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="https://maps.google.com/..."
                     />
                   </div>
                 </div>
