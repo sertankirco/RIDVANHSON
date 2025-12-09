@@ -44,6 +44,8 @@ export interface SiteContent {
     description: string;
     imageUrl: string;
     imagePositionY?: number; // 0 to 100 percentage for object-position-y
+    imagePositionX?: number; // 0 to 100 percentage for object-position-x
+    imageScale?: number; // Zoom level, default 1
     experienceYears: string;
   };
   about: {

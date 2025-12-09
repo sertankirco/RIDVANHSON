@@ -225,16 +225,22 @@ export default function App() {
           <div className="flex-1 relative">
             <div className="relative w-72 h-72 md:w-96 md:h-96 mx-auto">
               <div className="absolute inset-0 bg-blue-100 rounded-full blur-3xl opacity-50 animate-pulse"></div>
-              <img 
-                src={getValidImageUrl(siteContent.hero.imageUrl)} 
-                alt={siteContent.personal.name} 
-                referrerPolicy="no-referrer"
-                className="relative w-full h-full object-cover rounded-full border-8 border-white shadow-2xl z-10 transition-all duration-300"
-                style={{ objectPosition: `center ${siteContent.hero.imagePositionY ?? 50}%` }}
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(siteContent.personal.name)}&background=random&size=512`;
-                }}
-              />
+              {/* Image Container with Border and Clipping */}
+              <div className="relative w-full h-full rounded-full border-8 border-white shadow-2xl z-10 overflow-hidden bg-white">
+                <img 
+                    src={getValidImageUrl(siteContent.hero.imageUrl)} 
+                    alt={siteContent.personal.name} 
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover transition-all duration-300"
+                    style={{ 
+                        objectPosition: `${siteContent.hero.imagePositionX ?? 50}% ${siteContent.hero.imagePositionY ?? 50}%`,
+                        transform: `scale(${siteContent.hero.imageScale ?? 1})`
+                    }}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(siteContent.personal.name)}&background=random&size=512`;
+                    }}
+                />
+              </div>
               <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg z-20 flex items-center gap-3 animate-fadeIn">
                 <div className="bg-blue-100 p-2 rounded-full text-blue-600">
                   <Award className="w-6 h-6" />

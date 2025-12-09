@@ -934,7 +934,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                      {/* Circular Position Adjuster for Hero Image */}
                      <div className="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-lg">
                         <div className="flex justify-between items-center mb-2">
-                           <label className="text-sm font-medium text-slate-700">Fotoğraf Konumu (Yukarı - Aşağı)</label>
+                           <label className="text-sm font-medium text-slate-700">Dikey Konum (Yukarı - Aşağı)</label>
                            <span className="text-xs font-mono bg-white px-2 py-1 rounded border border-slate-200 text-slate-600">
                              %{editContent.hero.imagePositionY ?? 50}
                            </span>
@@ -945,28 +945,57 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                           max="100" 
                           value={editContent.hero.imagePositionY ?? 50} 
                           onChange={(e) => setEditContent({...editContent, hero: {...editContent.hero, imagePositionY: parseInt(e.target.value)}})}
+                          className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mb-4"
+                        />
+                        
+                        <div className="flex justify-between items-center mb-2">
+                           <label className="text-sm font-medium text-slate-700">Yatay Konum (Sağa - Sola)</label>
+                           <span className="text-xs font-mono bg-white px-2 py-1 rounded border border-slate-200 text-slate-600">
+                             %{editContent.hero.imagePositionX ?? 50}
+                           </span>
+                        </div>
+                        <input 
+                          type="range" 
+                          min="0" 
+                          max="100" 
+                          value={editContent.hero.imagePositionX ?? 50} 
+                          onChange={(e) => setEditContent({...editContent, hero: {...editContent.hero, imagePositionX: parseInt(e.target.value)}})}
+                          className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600 mb-4"
+                        />
+                        
+                        <div className="flex justify-between items-center mb-2">
+                           <label className="text-sm font-medium text-slate-700">Yakınlaştırma (Zoom)</label>
+                           <span className="text-xs font-mono bg-white px-2 py-1 rounded border border-slate-200 text-slate-600">
+                             x{editContent.hero.imageScale ?? 1}
+                           </span>
+                        </div>
+                        <input 
+                          type="range" 
+                          min="1" 
+                          max="3" 
+                          step="0.1"
+                          value={editContent.hero.imageScale ?? 1} 
+                          onChange={(e) => setEditContent({...editContent, hero: {...editContent.hero, imageScale: parseFloat(e.target.value)}})}
                           className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                         />
-                        <div className="flex justify-between text-xs text-slate-400 mt-1 px-1">
-                          <span>Üst</span>
-                          <span>Orta</span>
-                          <span>Alt</span>
-                        </div>
 
                         {/* Live Preview for Circular Image */}
-                        <div className="mt-4 flex flex-col items-center">
+                        <div className="mt-6 flex flex-col items-center">
                           <span className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wide">Canlı Önizleme</span>
                           <div className="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden relative bg-slate-200">
                             <img 
                               src={getValidImageUrl(editContent.hero.imageUrl)} 
                               alt="Önizleme"
                               className="w-full h-full object-cover transition-all duration-200"
-                              style={{ objectPosition: `center ${editContent.hero.imagePositionY ?? 50}%` }}
+                              style={{ 
+                                objectPosition: `${editContent.hero.imagePositionX ?? 50}% ${editContent.hero.imagePositionY ?? 50}%`,
+                                transform: `scale(${editContent.hero.imageScale ?? 1})`
+                              }}
                               referrerPolicy="no-referrer"
                             />
                           </div>
                           <p className="text-xs text-slate-400 mt-2 text-center max-w-xs">
-                            Sürgüyü kullanarak fotoğrafı daire içine tam oturacak şekilde ayarlayabilirsiniz.
+                            Sürgüleri kullanarak fotoğrafı daire içine tam oturacak şekilde ayarlayabilirsiniz.
                           </p>
                         </div>
                      </div>
@@ -1017,40 +1046,6 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                       value={editContent.hero.experienceYears}
                       onChange={(e) => setEditContent({...editContent, hero: {...editContent.hero, experienceYears: e.target.value}})}
                       className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* About Section */}
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                <h2 className="text-lg font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100">Hakkımda Alanı</h2>
-                <div className="space-y-4">
-                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Bölüm Başlığı</label>
-                    <input 
-                      type="text" 
-                      value={editContent.about.title}
-                      onChange={(e) => setEditContent({...editContent, about: {...editContent.about, title: e.target.value}})}
-                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Kısa Özet (Ana Sayfa İçin)</label>
-                    <textarea 
-                      rows={4}
-                      value={editContent.about.shortSummary}
-                      onChange={(e) => setEditContent({...editContent, about: {...editContent.about, shortSummary: e.target.value}})}
-                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Detaylı Biyografi (Pencerede Açılan)</label>
-                    <textarea 
-                      rows={12}
-                      value={editContent.about.fullBiography}
-                      onChange={(e) => setEditContent({...editContent, about: {...editContent.about, fullBiography: e.target.value}})}
-                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
                     />
                   </div>
                 </div>

@@ -1,18 +1,17 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { AIResponse } from '../types';
 
-// Build hatasını gidermek için tip tanımı
-declare const process: {
-  env: {
-    API_KEY: string | undefined;
-  }
-};
+// Vite config içindeki define sayesinde process.env.API_KEY derleme zamanında string'e dönüşecektir.
+// Typescript'in kızmaması için basit bir kontrol yeterlidir.
 
 const getClient = () => {
-    if (!process.env.API_KEY) {
+    // @ts-ignore - process.env.API_KEY Vite tarafından replace edilecek
+    const apiKey = process.env.API_KEY;
+    
+    if (!apiKey) {
         throw new Error("API Key bulunamadı. Lütfen environment variable'larını kontrol edin.");
     }
-    return new GoogleGenAI({ apiKey: process.env.API_KEY });
+    return new GoogleGenAI({ apiKey });
 };
 
 export const generateBlogContent = async (topic: string): Promise<AIResponse> => {

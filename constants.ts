@@ -1,4 +1,3 @@
-
 import { BlogPost, SiteContent } from './types';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
@@ -11,8 +10,10 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
     "titleLine1": "Lojistik, Dış Ticaret ve",
     "titleHighlight": "Sen Ben Yok",
     "description": "1998'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
-    "imageUrl": "https://drive.google.com/file/d/16JCEA1vfIIDTJrrV4BgGtxb_SMXfzcCO/view?usp=drive_link",
+    "imageUrl": "https://drive.google.com/file/d/1rzod-PavF4tg7x5at6OeRCTWyAR6iGbt/view?usp=drive_link",
     "imagePositionY": 0,
+    "imagePositionX": 52,
+    "imageScale": 1,
     "experienceYears": "25+ Yıl"
   },
   "about": {
