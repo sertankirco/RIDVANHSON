@@ -1,3 +1,4 @@
+
 export interface BlogPost {
   id: string;
   title: string;
@@ -7,6 +8,13 @@ export interface BlogPost {
   date: string;
   imageUrl: string;
   tags: string[];
+}
+
+export interface Video {
+  id: string;
+  title: string;
+  url: string; // YouTube link
+  description?: string;
 }
 
 export interface AIResponse {
@@ -31,7 +39,8 @@ export interface SiteContent {
   };
   about: {
     title: string;
-    paragraph1: string;
-    paragraph2: string;
+    shortSummary: string; // Ana sayfada gözükecek kısa yazı
+    fullBiography: string; // Pencerede açılacak uzun yazı
   };
+  videos: Video[]; // Videolar listesi
 }

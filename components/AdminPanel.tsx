@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
-import { BlogPost, SiteContent } from '../types';
+import { BlogPost, SiteContent, Video } from '../types';
 import { Button } from './Button';
 import { generateBlogContent } from '../services/geminiService';
 import { getValidImageUrl } from '../utils/image';
+import { getYoutubeThumbnail } from '../utils/video';
 import { 
   LayoutDashboard, 
   FileText, 
@@ -21,7 +23,8 @@ import {
   Copy,
   Check,
   Github,
-  Edit
+  Edit,
+  Play
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -41,7 +44,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   onLogout, 
   onViewSite 
 }) => {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'posts' | 'new' | 'settings' | 'export'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'posts' | 'new' | 'videos' | 'settings' | 'export'>('dashboard');
   const [searchTerm, setSearchTerm] = useState('');
 
   // Editing State
@@ -53,6 +56,11 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const [newPostSummary, setNewPostSummary] = useState('');
   const [newPostImage, setNewPostImage] = useState('');
   
+  // Video Form State
+  const [videoTitle, setVideoTitle] = useState('');
+  const [videoUrl, setVideoUrl] = useState('');
+  const [videoDesc, setVideoDesc] = useState('');
+
   // AI State
   const [aiLoading, setAiLoading] = useState(false);
   const [aiTopic, setAiTopic] = useState('');
@@ -63,6 +71,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   // Export State
   const [copied, setCopied] = useState(false);
 
+  // --- Post Functions ---
   const handleDelete = (id: string) => {
     if (window.confirm('Bu yazıyı silmek istediğinize emin misiniz? Bu işlem geri alınamaz.')) {
       const updatedPosts = posts.filter(p => p.id !== id);
@@ -116,6 +125,40 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     
     setActiveTab('posts');
     resetForm();
+  };
+
+  // --- Video Functions ---
+  const handleAddVideo = (e: React.FormEvent) => {
+     e.preventDefault();
+     const newVideo: Video = {
+       id: Date.now().toString(),
+       title: videoTitle,
+       url: videoUrl,
+       description: videoDesc
+     };
+     
+     // Videolar SiteContent içinde saklanıyor
+     const currentVideos = siteContent.videos || [];
+     const updatedContent = { ...siteContent, videos: [...currentVideos, newVideo] };
+     
+     onUpdateSiteContent(updatedContent);
+     setEditContent(updatedContent); // Settings state'ini de güncelle
+     
+     // Formu temizle
+     setVideoTitle('');
+     setVideoUrl('');
+     setVideoDesc('');
+     alert('Video eklendi!');
+  };
+
+  const handleDeleteVideo = (id: string) => {
+     if (window.confirm('Bu videoyu silmek istediğinize emin misiniz?')) {
+        const currentVideos = siteContent.videos || [];
+        const updatedVideos = currentVideos.filter(v => v.id !== id);
+        const updatedContent = { ...siteContent, videos: updatedVideos };
+        onUpdateSiteContent(updatedContent);
+        setEditContent(updatedContent);
+     }
   };
 
   const handleAIGenerate = async () => {
@@ -200,6 +243,13 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
             Yeni Yazı Ekle
           </button>
           <button 
+            onClick={() => setActiveTab('videos')}
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'videos' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
+          >
+            <Play className="w-5 h-5" />
+            Videolar
+          </button>
+          <button 
             onClick={() => setActiveTab('settings')}
             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'settings' ? 'bg-blue-600 text-white' : 'text-slate-400 hover:bg-slate-800 hover:text-white'}`}
           >
@@ -243,13 +293,10 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-slate-500 text-sm font-medium">Toplam Görüntülenme</h3>
-                  <Eye className="w-5 h-5 text-green-600" />
+                  <h3 className="text-slate-500 text-sm font-medium">Toplam Video</h3>
+                  <Play className="w-5 h-5 text-red-600" />
                 </div>
-                <p className="text-3xl font-bold text-slate-900">12.5K</p>
-                <span className="text-xs text-green-600 font-medium flex items-center mt-2">
-                  <TrendingUp className="w-3 h-3 mr-1" /> %12 artış
-                </span>
+                <p className="text-3xl font-bold text-slate-900">{(siteContent.videos || []).length}</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
                 <div className="flex items-center justify-between mb-4">
@@ -290,6 +337,87 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'videos' && (
+          <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
+             <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold text-slate-900">Video Yönetimi</h1>
+            </div>
+            
+            {/* Add New Video Form */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+               <h3 className="text-lg font-bold text-slate-900 mb-4">Yeni Video Ekle</h3>
+               <form onSubmit={handleAddVideo} className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Video Başlığı</label>
+                    <input 
+                      required
+                      type="text" 
+                      value={videoTitle}
+                      onChange={(e) => setVideoTitle(e.target.value)}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Örn: Sektör Değerlendirmesi"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">YouTube Linki</label>
+                    <input 
+                      required
+                      type="text" 
+                      value={videoUrl}
+                      onChange={(e) => setVideoUrl(e.target.value)}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="https://youtube.com/watch?v=..."
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Kısa Açıklama</label>
+                    <input 
+                      type="text" 
+                      value={videoDesc}
+                      onChange={(e) => setVideoDesc(e.target.value)}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder="Videonun içeriği hakkında kısa bilgi..."
+                    />
+                  </div>
+                  <div className="flex justify-end">
+                    <Button type="submit" icon={<Plus className="w-4 h-4" />}>Ekle</Button>
+                  </div>
+               </form>
+            </div>
+
+            {/* Existing Videos List */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+               <h3 className="text-lg font-bold text-slate-900 mb-4">Mevcut Videolar</h3>
+               <div className="space-y-4">
+                  {(siteContent.videos && siteContent.videos.length > 0) ? (
+                    siteContent.videos.map(video => (
+                      <div key={video.id} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg border border-slate-100">
+                         <div className="w-24 h-16 shrink-0 rounded overflow-hidden relative bg-black">
+                            <img src={getYoutubeThumbnail(video.url)} alt="" className="w-full h-full object-cover opacity-80" />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                               <Play className="w-6 h-6 text-white" />
+                            </div>
+                         </div>
+                         <div className="flex-1">
+                            <h4 className="font-bold text-slate-900">{video.title}</h4>
+                            <p className="text-sm text-slate-500 truncate">{video.url}</p>
+                         </div>
+                         <button 
+                            onClick={() => handleDeleteVideo(video.id)}
+                            className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
+                         >
+                            <Trash2 className="w-5 h-5" />
+                         </button>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-slate-500 text-center py-4">Henüz video eklenmemiş.</p>
+                  )}
+               </div>
             </div>
           </div>
         )}
@@ -577,21 +705,21 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Paragraf 1</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Kısa Özet (Ana Sayfa İçin)</label>
                     <textarea 
                       rows={4}
-                      value={editContent.about.paragraph1}
-                      onChange={(e) => setEditContent({...editContent, about: {...editContent.about, paragraph1: e.target.value}})}
+                      value={editContent.about.shortSummary}
+                      onChange={(e) => setEditContent({...editContent, about: {...editContent.about, shortSummary: e.target.value}})}
                       className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Paragraf 2</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Detaylı Biyografi (Pencerede Açılan)</label>
                     <textarea 
-                      rows={4}
-                      value={editContent.about.paragraph2}
-                      onChange={(e) => setEditContent({...editContent, about: {...editContent.about, paragraph2: e.target.value}})}
-                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500"
+                      rows={12}
+                      value={editContent.about.fullBiography}
+                      onChange={(e) => setEditContent({...editContent, about: {...editContent.about, fullBiography: e.target.value}})}
+                      className="w-full px-4 py-2 rounded-lg border border-slate-200 outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
                     />
                   </div>
                 </div>
@@ -608,7 +736,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                  <Code className="w-6 h-6 mr-2" /> Değişiklikleri Kalıcı Hale Getirme
                </h2>
                <p className="text-purple-800 mb-4">
-                 Sitenizi Vercel veya GitHub üzerinde güncellediğinizde değişikliklerin (yeni yazılar, ayarlar vb.) kalıcı olması için aşağıdaki kodu 
+                 Sitenizi Vercel veya GitHub üzerinde güncellediğinizde değişikliklerin (yeni yazılar, ayarlar, videolar vb.) kalıcı olması için aşağıdaki kodu 
                  <strong> constants.ts</strong> dosyasına yapıştırmalısınız.
                </p>
                
