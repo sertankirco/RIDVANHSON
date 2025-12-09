@@ -1,9 +1,21 @@
+
 import { BlogPost, SiteContent } from './types';
+
+// Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
+// eski veriyi silip yenisiyle güncelleyecektir.
+export const APP_VERSION = '2.1'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
     "name": "Rıdvan Haliloğlu",
     "title": "Yetkilendirilmiş Gümrük Müşaviri & Eğitmen"
+  },
+  "socialMedia": {
+    "linkedin": "https://linkedin.com",
+    "twitter": "https://twitter.com",
+    "facebook": "https://facebook.com",
+    "instagram": "https://www.instagram.com/halilogluridvan/",
+    "youtube": "https://youtube.com"
   },
   "hero": {
     "badge": "Mundoimex YK Başkanı",
@@ -68,18 +80,6 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
 };
 
 export const INITIAL_POSTS: BlogPost[] = [
-  {
-    "id": "1765309219542",
-    "title": "Gümrük Müşavirliği: Türkiye’de Tarihsel Gelişimi, Stratejik Önemi ve Gelecek Perspektifi",
-    "content": "Osmanlı’dan Cumhuriyet’e Kurumsallaşmanın Temelleri\nOsmanlı Devleti’nin geniş toprakları, sınır ticaretini ve gümrük işlemlerini kaçınılmaz kılıyordu. Sınır kapılarında gümrük gelirleri, açık artırmayla ihaleye çıkarılır; ihaleyi alanlar devlete peşin ödeme yapar, yıl boyunca giriş-çıkışlardan vergi toplayarak gelir elde ederdi. Bu sistem, yerelin ticaret akışını bilmesi sayesinde çoğunlukla kârlı olurdu.\n1909’da II. Abdülhamit döneminde meslek ilk kez “Gümrük Komisyonculuğu” adıyla tanımlandı ve bir padişah fermanıyla kurala bağlandı. Bu çerçevede:\nRuhsat zorunluluğu,\nTeminat yükümlülüğü,\nKamu görevlileriyle çıkar ilişkisinin yasaklanması\ngibi temel ilkeler belirlendi. Böylece meslek, kurumsal bir zemine kavuştu.\nCumhuriyet’in ilanından kısa süre sonra, 29 Ekim 1923’ü izleyen aylarda genç Cumhuriyet, ilk Gümrük Kanunu düzenlemesini yaptı. Amaç açıktı; sınır güvenliği sağlanacak, eşya giriş-çıkışları düzenlenecek ve ekonomik kalkınmanın altyapısı güçlü hale gelecekti.\nKanunlar ve AB Uyum Süreci\nZaman içinde Türkiye üç farklı gümrük kanunu döneminden geçti. 1949 yılında çıkarılan 5383 Sayılı Kanun ve 1972 tarihli 1615 sayılı Kanun’un ardından, 5 Şubat 2000’de yürürlüğe giren 4458 sayılı Gümrük Kanunu bugün halen yürürlüktedir. Bu kanun, özellikle AB ile 1/95 sayılı Ortaklık Konseyi Kararı doğrultusunda mevzuat uyumunu hedefleyen kritik değişiklikler getirdi.\nBu süreçte:\nGümrük Müşavirliği ve Gümrük Müşavir Yardımcılığı resmen tanımlandı.\n2009’dan itibaren “Yetkilendirilmiş Gümrük Müşavirliği” uygulaması hayata geçti.\nKriz Zamanlarında Görünmez Kahramanlar\nGümrük Müşavirliği, en çok kriz dönemlerinde hayati önem kazanıyor. Pandemi dönemini hatırlayalım: Aşıların (Sinovac, Pfizer-BioNTech) ithali, solunum cihazı ve yedek parçalarının temini… Tüm bu kritik kalemler, gümrük işlemlerinin hızlı ve doğru yürütülmesi sayesinde ülkeye girebildi. Sokağa çıkma izinleriyle sessiz sedasız çalışan Gümrük Müşavirleri ve Gümrük Müşavir Yardımcıları, beyanname tescillerinden başlayan iş akışlarından sahada sevkiyat organizasyonuna kadar zincirin görünmeyen fakat vazgeçilmez halkası oldular.\n\nDünyadan Çarpıcı Örnekler\nABD’de grev hakkı anayasal güvenceye sahip olsa da tarihte yalnızca iki kez başkanlık emriyle grev durduruldu. Bunlardan biri İkinci Dünya Savaşı sırasında tersane işçilerinin grevi diğeri ise çok sonra ki dönemde Gümrük Müşavirlerinin greviydi. Sınır kapılarında biriken mallar ve tıkanan ihracat nedeniyle ekonomi üçüncü günde alarm verince, grev ulusal güvenlik gerekçesiyle sonlandırıldı. Bu olay, mesleğin ekonomik akış için ne kadar stratejik olduğunu gösteriyor.\nBir başka etkileyici örnek: Apollo görevinden dönen astronotların Ay’dan getirdiği taşlar için NASA’dan gümrük beyannamesi istenmesidir. “Sınırdan giren her şeyin beyanı” ilkesinin ne kadar titizlikle uygulandığının sembolik ama öğretici bir göstergesidir.\nToplum Sağlığı: Plastik ve Kağıt Hammaddeleri Örneği\nYakın geçmişte Türkiye genelinde yapılan bir denetimde, özellikle plastik granül ve selüloz bazlı kağıt-karton hammadde ithalatında kritik bir risk tespit edildi. Gıda ile temas edecek ürünlerde kullanılacak hammaddelerin Tarım Bakanlığı tarafından numunesi alınarak uygunluk kontrolünden geçmesi gerekirken, bazı ithalatçıların “gıda ile temas etmeyecek” beyanıyla bu süreci by-pass ettiği görüldü. Oysa:\nKarton bardaklardan meyve suyu kutularına,\nYoğurt kaplarından ayran ambalajlarına,\nFast food ambalajlarından sıcak içecek bardaklarına\nuzanan geniş bir yelpazede, malzeme kimyasalları sıcak/soğukla temas ettiğinde gıdaya sızıyor ve kanserojen etkiler oluşturabiliyordu.\nBu bulgular üzerine, sonradan kontrol mekanizmasını güçlendirmek amacıyla Yetkilendirilmiş Gümrük Müşavirlerine görev veren bir düzenleme çıkarıldı; ancak TOBB üyesi firmaların baskısıyla birkaç ay sonra geri çekildi. Bu deneyim, gümrük denetiminin yalnızca ekonomi için değil, doğrudan halk sağlığı için de belirleyici olduğunu net biçimde kanıtlamıştır.\nNeden Hayati? Ekonomi, Sağlık, Kültür ve Çevre\nGümrük Müşavirliği; ülke sınırlarının korunması, yasa dışı ticaretin engellenmesi, vergi kaybının önlenmesi, toplum sağlığının güvence altına alınması ve kültürel miras ile çevrenin korunmasında stratejik bir rol üstlenir. İyi yetişmiş, donanımlı meslek mensupları; kriz anlarında tedarik zincirini ayakta tutar, normal zamanlarda ise ekonominin ritmini süreklileştirir.\nMesleğin Geleceği: Eğitim, Uyum ve Şeffaflık\nSürekli Eğitim: Değişen mevzuat ve uluslararası standartlar doğrultusunda sürekli öğrenme şart.\nDijitalleşme ve Uyum: AB mevzuatı ve küresel ticaret kurallarıyla tam uyum, hızlı ve şeffaf süreçlerin anahtarı.\nSonradan Kontrolün Güçlendirilmesi: Halk sağlığı ve güvenlik için risk temelli, teknolojik denetim altyapısının güçlendirilmesi.\nMesleki Etik: Kamu otoritesiyle çıkar ilişkilerinden arınmış, şeffaf ve hesap verebilir bir meslek kültürü.\nSon Söz\nYaklaşık 33 yıldır mesleğin içinde olan ve üniversitelerde eğitimler, konferanslar veren Rıdvan Haliloğlu tecrübesiyle aktarılan bu çerçeve, Gümrük Müşavirliğinin yalnızca bir “aracılık” faaliyeti olmadığını; ekonominin, toplum sağlığının ve ulusal güvenliğin temel direklerinden biri olduğunu ortaya koyuyor. Daha sağlıklı bir gelecek ve daha güçlü bir ekonomi için, gümrük süreçlerinin bilgiyle, etikle ve teknolojiyle güçlendirilmesi kritik önem taşıyor.\nSevgiler, saygılar.\n",
-    "summary": "Türkiye’de Gümrük Müşavirliği mesleğinin tarihsel gelişimine baktığımızda, köklerinin Cumhuriyet’ten bile eskiye dayandığını görüyoruz. Osmanlı’dan bugüne uzanan bu yolculuk, hem ülke ekonomisi hem de toplum sağlığı açısından kritik dersler barındırıyor.",
-    "tags": [
-      "Genel"
-    ],
-    "author": "Rıdvan Haliloğlu",
-    "date": "9 Aralık 2025",
-    "imageUrl": "https://drive.google.com/file/d/1yleJeQyv4ZVXTyLpEQfeYF6jxCZKa-pi/view?usp=sharing"
-  },
   {
     "id": "1",
     "title": "Gümrüklerde Dijital Dönüşüm ve Endüstri 4.0",
