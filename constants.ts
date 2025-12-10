@@ -1,9 +1,4 @@
-
 import { BlogPost, SiteContent } from './types';
-
-// Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
-// eski veriyi silip yenisiyle güncelleyecektir.
-export const APP_VERSION = '2.4'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -27,11 +22,11 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
     "badge": "Mundoimex YK Başkanı",
     "titleLine1": "Lojistik, Dış Ticaret ve",
     "titleHighlight": "Geleceğin Gümrükleri",
-    "description": "1998'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
+    "description": "1992'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
     "imageUrl": "https://drive.google.com/file/d/1Frw_6g7NAWK9ek2nuyU8APieQTuMTeze/view?usp=sharing",
-    "imagePositionY": 0,
-    "imagePositionX": 52,
-    "imageScale": 1,
+    "imagePositionY": 43,
+    "imagePositionX": 54,
+    "imageScale": 1.2,
     "experienceYears": "30+ Yıl"
   },
   "about": {
@@ -43,7 +38,7 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
     {
       "id": "1",
       "title": "Küresel Tedarik Zinciri ve Lojistik",
-      "url": "https://www.youtube.com/watch?v=esw88t0h-yA", 
+      "url": "https://www.youtube.com/watch?v=esw88t0h-yA",
       "description": "Lojistik sektöründe tedarik zinciri yönetiminin önemi üzerine genel bir bakış."
     },
     {
