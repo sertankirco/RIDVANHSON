@@ -5,7 +5,6 @@ import { INITIAL_POSTS, INITIAL_SITE_CONTENT, APP_VERSION } from './constants';
 import { BlogCard } from './components/BlogCard';
 import { PostModal } from './components/PostModal';
 import { BioModal } from './components/BioModal';
-import { AIComposer } from './components/AIComposer';
 import { Button } from './components/Button';
 import { AdminLogin } from './components/AdminLogin';
 import { AdminPanel } from './components/AdminPanel';
@@ -86,7 +85,6 @@ export default function App() {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBioModalOpen, setIsBioModalOpen] = useState(false);
-  const [isComposerOpen, setIsComposerOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   // Contact Form State
@@ -112,10 +110,6 @@ export default function App() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setTimeout(() => setSelectedPost(null), 300);
-  };
-
-  const handlePostCreated = (newPost: BlogPost) => {
-    setPosts([newPost, ...posts]);
   };
 
   const scrollToSection = (id: string) => {
@@ -183,14 +177,6 @@ export default function App() {
             <button onClick={() => scrollToSection('videos')} className="hover:text-blue-600 transition-colors">Videolarım</button>
             <button onClick={() => scrollToSection('blog')} className="hover:text-blue-600 transition-colors">Blog</button>
             <button onClick={() => scrollToSection('contact')} className="hover:text-blue-600 transition-colors">İletişim</button>
-            <Button 
-              onClick={() => setIsComposerOpen(true)}
-              icon={<Sparkles className="w-4 h-4" />}
-              variant="primary"
-              className="ml-2 !bg-slate-900 hover:!bg-slate-800"
-            >
-              Hızlı Yaz
-            </Button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -211,9 +197,6 @@ export default function App() {
               <button onClick={() => scrollToSection('videos')} className="text-left py-2 hover:text-blue-600">Videolarım</button>
               <button onClick={() => scrollToSection('blog')} className="text-left py-2 hover:text-blue-600">Blog</button>
               <button onClick={() => scrollToSection('contact')} className="text-left py-2 hover:text-blue-600">İletişim</button>
-              <Button onClick={() => { setIsComposerOpen(true); setMobileMenuOpen(false); }} className="w-full justify-center !bg-slate-900">
-                <Sparkles className="w-4 h-4 mr-2" /> Yazı Oluştur
-              </Button>
             </div>
           </div>
         )}
@@ -438,9 +421,6 @@ export default function App() {
               <h2 className="text-3xl font-bold text-slate-900">Makaleler & Görüşler</h2>
               <p className="text-slate-500 mt-2">Sektörel değerlendirmeler ve vizyon yazıları.</p>
             </div>
-            <Button onClick={() => setIsComposerOpen(true)} className="!bg-slate-900">
-              <Sparkles className="w-4 h-4 mr-2" /> Hızlı Yaz (AI)
-            </Button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -623,12 +603,6 @@ export default function App() {
         name={siteContent.personal.name}
         isOpen={isBioModalOpen}
         onClose={() => setIsBioModalOpen(false)}
-      />
-
-      <AIComposer 
-        isOpen={isComposerOpen} 
-        onClose={() => setIsComposerOpen(false)}
-        onPostCreated={handlePostCreated}
       />
     </div>
   );
