@@ -28,7 +28,7 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
     "titleLine1": "Lojistik, Dış Ticaret ve",
     "titleHighlight": "Geleceğin Gümrükleri",
     "description": "1998'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
-    "imageUrl": "https://drive.google.com/file/d/1rzod-PavF4tg7x5at6OeRCTWyAR6iGbt/view?usp=drive_link",
+    "imageUrl": "https://drive.google.com/file/d/1Frw_6g7NAWK9ek2nuyU8APieQTuMTeze/view?usp=sharing",
     "imagePositionY": 0,
     "imagePositionX": 52,
     "imageScale": 1,
