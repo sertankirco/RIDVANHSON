@@ -1,6 +1,6 @@
 import { BlogPost, SiteContent } from './types';
 
-export const APP_VERSION = '2.6';
+export const APP_VERSION = '2.7';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -22,9 +22,9 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   },
   "hero": {
     "badge": "Mundoimex YK Başkanı",
-    "titleLine1": "Lojistik, Dış Ticaret ve",
+    "titleLine1": "Gümrük, Lojistik, Dış Ticaret ve",
     "titleHighlight": "Geleceğin Gümrükleri",
-    "description": "1992'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
+    "description": "1992'den beri sektörün içinde; Dış Ticaret Uzmanı, YGM, Gümrük Müşaviri, Eğitmen olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
     "imageUrl": "https://drive.google.com/file/d/1Frw_6g7NAWK9ek2nuyU8APieQTuMTeze/view?usp=sharing",
     "imagePositionY": 43,
     "imagePositionX": 54,
