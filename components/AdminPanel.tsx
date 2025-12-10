@@ -326,6 +326,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const generateExportCode = () => {
     return `import { BlogPost, SiteContent } from './types';
 
+// Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
+// eski veriyi silip yenisiyle güncelleyecektir.
+export const APP_VERSION = '2.5'; 
+
 export const INITIAL_SITE_CONTENT: SiteContent = ${JSON.stringify(siteContent, null, 2)};
 
 export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;

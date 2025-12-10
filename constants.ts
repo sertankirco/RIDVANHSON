@@ -1,5 +1,7 @@
 import { BlogPost, SiteContent } from './types';
 
+export const APP_VERSION = '2.5';
+
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
     "name": "Rıdvan Haliloğlu",
