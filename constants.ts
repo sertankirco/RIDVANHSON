@@ -3,7 +3,7 @@ import { BlogPost, SiteContent } from './types';
 
 // Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
 // eski veriyi silip yenisiyle güncelleyecektir.
-export const APP_VERSION = '2.3'; 
+export const APP_VERSION = '2.4'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -26,13 +26,13 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   "hero": {
     "badge": "Mundoimex YK Başkanı",
     "titleLine1": "Lojistik, Dış Ticaret ve",
-    "titleHighlight": "Sen Ben Yok",
+    "titleHighlight": "Geleceğin Gümrükleri",
     "description": "1998'den beri sektörün içinde; Gümrük Müşaviri, Eğitmen ve Sektör Lideri olarak deneyimlerimi, dijital dönüşüm vizyonuyla birleştiriyorum.",
     "imageUrl": "https://drive.google.com/file/d/1rzod-PavF4tg7x5at6OeRCTWyAR6iGbt/view?usp=drive_link",
     "imagePositionY": 0,
     "imagePositionX": 52,
     "imageScale": 1,
-    "experienceYears": "25+ Yıl"
+    "experienceYears": "30+ Yıl"
   },
   "about": {
     "title": "Biyografi",
@@ -56,31 +56,38 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   "experience": [
     {
       "id": "1",
-      "company": "Mundoimex",
-      "role": "Kurucu Ortak & Yönetim Kurulu Başkanı",
-      "period": "2016 - Günümüz",
-      "description": "Gümrük Müşavirliği ve Global Lojistik alanında yenilikçi çözümler sunan şirketin liderliği."
+      "company": "Mundoimex & THY DO & CO",
+      "role": "YGM & Gümrük Müdürü",
+      "period": "2018 - Günümüz",
+      "description": "Yetkilendirilmiş Gümrük Müşavirliğine geçiş, Türkiye'nin pek çok önemli kuruluşuna danışmanlık ve THY DO & CO Gümrük Müdürlüğü."
     },
     {
       "id": "2",
+      "company": "Mundoimex",
+      "role": "Kurucu Ortak & Yönetim Kurulu Başkanı",
+      "period": "2015 - 2018",
+      "description": "Gümrük Müşavirliği ve Global Lojistik alanında yenilikçi çözümler sunan şirketin liderliği."
+    },
+    {
+      "id": "3",
       "company": "DHL Global Forwarding",
       "role": "Gümrük Operasyonları Müdürü",
       "period": "2011 - 2015",
       "description": "Global bir devde gümrük operasyonlarının yönetimi ve süreç optimizasyonu."
     },
     {
-      "id": "3",
+      "id": "4",
       "company": "Onel Şirketler Grubu",
       "role": "Gümrük Müşaviri & Yönetici",
       "period": "2000 - 2011",
       "description": "Çeşitli şehirlerde şube kurulumları ve operasyonel yönetim."
     },
     {
-      "id": "4",
-      "company": "Mesleki Başlangıç",
-      "role": "Gümrük Müşavir Yardımcısı",
-      "period": "1998 - 2000",
-      "description": "Sektöre giriş ve ilk deneyimler."
+      "id": "5",
+      "company": "Sektöre Giriş",
+      "role": "Saha Operasyon & Staj",
+      "period": "1992 - 1998",
+      "description": "Haydarpaşa ve Halkalı gümrükleri başta olmak üzere; KTF Konteyner Formu ve Gümrük Beyannameleri süreçlerinde, çeşitli gümrük sahalarında aktif saha görevleri."
     }
   ]
 };
