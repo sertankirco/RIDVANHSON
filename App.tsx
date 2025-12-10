@@ -289,6 +289,14 @@ export default function App() {
               </h2>
               <div className="space-y-6">
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                  <h3 className="text-lg font-bold text-slate-900">İstanbul Kültür Üniversitesi</h3>
+                  <p className="text-blue-600">Yönetim Ekonomisi (Tezli Yüksek Lisans)</p>
+                  <p className="text-sm text-slate-500 mt-2 leading-relaxed">
+                    “Türkiye’de Dış Ticaret İle Ekonomik Büyüme Arasındaki İlişki” konulu bitirme tezi.
+                  </p>
+                </div>
+
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
                   <h3 className="text-lg font-bold text-slate-900">Anadolu Üniversitesi</h3>
                   <p className="text-blue-600">İktisat Fakültesi</p>
                   <p className="text-sm text-slate-500 mt-1">Lisans Derecesi</p>

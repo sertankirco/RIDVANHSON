@@ -1,6 +1,6 @@
 import { BlogPost, SiteContent } from './types';
 
-export const APP_VERSION = '2.7';
+export const APP_VERSION = '2.8';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
