@@ -1,6 +1,6 @@
 import { BlogPost, SiteContent } from './types';
 
-export const APP_VERSION = '2.9';
+export const APP_VERSION = '3.0';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -9,9 +9,9 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   },
   "contact": {
     "email": "info@mundoimex.com",
-    "phone": "+90 212 123 45 67",
-    "address": "Ataköy 7-8-9-10. Kısım Mah. Çobançeşme E-5 Yan Yol Cad. No:16/1 B Blok Kat:8 D:142 Ataköy Towers, Bakırköy / İSTANBUL",
-    "mapUrl": "https://maps.google.com"
+    "phone": "",
+    "address": "",
+    "mapUrl": ""
   },
   "socialMedia": {
     "linkedin": "https://linkedin.com",
@@ -111,7 +111,7 @@ export const INITIAL_POSTS: BlogPost[] = [
     "content": "Lojistik, sadece malların A noktasından B noktasına taşınması değil, karmaşık mevzuatların ve operasyonel süreçlerin yönetildiği multidisipliner bir alandır. Bu nedenle, sektör çalışanlarının eğitimi hayati önem taşır.\n\n    UTİKAD Akademi ve üniversitelerde verdiğim derslerde her zaman vurguladığım bir nokta var: \"Bilgi, lojistiğin en değerli yüküdür.\" Teorik bilginin saha tecrübesiyle harmanlanması, nitelikli iş gücünün temelini oluşturur.\n\n    Geleceğin lojistikçileri, sadece mevzuatı ezberleyen değil, analitik düşünebilen, kriz yönetebilen ve teknolojiyi etkin kullanabilen bireyler olmalıdır. Mentorluk sistemleri ve üniversite-sektör işbirlikleri bu noktada kilit rol oynuyor.",
     "author": "Rıdvan Haliloğlu",
     "date": "02 Aralık 2023",
-    "imageUrl": "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1000&auto=format&fit=crop",
+    "imageUrl": "https://drive.google.com/file/d/1LkW0yzlkmmcZev3Gz7ip7k86vCtobFV7/view?usp=drive_link",
     "tags": [
       "Eğitim",
       "Kariyer",
@@ -125,7 +125,7 @@ export const INITIAL_POSTS: BlogPost[] = [
     "content": "Küresel tedarik zincirindeki kırılmalar ve jeopolitik gerginlikler, 2024 yılında dış ticaret stratejilerini yeniden gözden geçirmemizi gerektiriyor. \"Nearshoring\" (yakından tedarik) eğilimi, Türkiye'nin stratejik önemini artırıyor.\n\n    Yeni Gümrük Kanunu çalışmaları ve mevzuat düzenlemeleri, sektörün önünü açacak önemli gelişmelerdir. İhracat odaklı büyüme modelinde, gümrük süreçlerinin basitleştirilmesi ve hızlandırılması rekabet gücümüzü doğrudan etkileyecektir.\n\n    Mundoimex olarak vizyonumuz, bu değişimleri önceden öngörüp müşterilerimize proaktif çözümler sunmaktır. 2024, zorluklarla birlikte büyük fırsatları da beraberinde getirecek.",
     "author": "Rıdvan Haliloğlu",
     "date": "10 Ocak 2024",
-    "imageUrl": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop",
+    "imageUrl": "https://drive.google.com/file/d/1DkCF4TXBjKTl5UpBVAxLAG2iZG4blM_3/view?usp=sharing",
     "tags": [
       "Dış Ticaret",
       "Ekonomi",
