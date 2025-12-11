@@ -39,9 +39,9 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   "videos": [
     {
       "id": "1",
-      "title": "Küresel Tedarik Zinciri ve Lojistik",
-      "url": "https://www.youtube.com/watch?v=esw88t0h-yA",
-      "description": "Lojistik sektöründe tedarik zinciri yönetiminin önemi üzerine genel bir bakış."
+      "title": "İGMD Genel Kurulunda Rıdvan HALİLOĞLU Konuşuyor",
+      "url": "https://youtu.be/eYUJHnTscbs?si=aaba52AKfF1V2geH",
+      "description": "İGMD Genel Kurul"
     },
     {
       "id": "2",
