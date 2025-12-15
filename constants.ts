@@ -1,6 +1,8 @@
 import { BlogPost, SiteContent } from './types';
 
-export const APP_VERSION = '3.2';
+// Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
+// eski veriyi silip yenisiyle güncelleyecektir.
+export const APP_VERSION = 'oy625'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -89,7 +91,6 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   ]
 };
 
-// BURADAN YAZILARI DEĞİŞTİREBİLİRSİNİZ
 export const INITIAL_POSTS: BlogPost[] = [
   {
     "id": "1",
@@ -121,9 +122,9 @@ export const INITIAL_POSTS: BlogPost[] = [
   },
   {
     "id": "3",
-    "title": "Dış Ticarette Yeni Dönem: 2024 Vizyonu",
-    "summary": "Küresel ekonomik dalgalanmaların gölgesinde 2024 yılı dış ticaret ve gümrük beklentileri.",
-    "content": "Küresel tedarik zincirindeki kırılmalar ve jeopolitik gerginlikler, 2024 yılında dış ticaret stratejilerini yeniden gözden geçirmemizi gerektiriyor. \"Nearshoring\" (yakından tedarik) eğilimi, Türkiye'nin stratejik önemini artırıyor.\n\n    Yeni Gümrük Kanunu çalışmaları ve mevzuat düzenlemeleri, sektörün önünü açacak önemli gelişmelerdir. İhracat odaklı büyüme modelinde, gümrük süreçlerinin basitleştirilmesi ve hızlandırılması rekabet gücümüzü doğrudan etkileyecektir.\n\n    Mundoimex olarak vizyonumuz, bu değişimleri önceden öngörüp müşterilerimize proaktif çözümler sunmaktır. 2024, zorluklarla birlikte büyük fırsatları da beraberinde getirecek.",
+    "title": "Gümrük Müşavirliği: Türkiye’de Tarihsel Gelişimi, Stratejik Önemi ve Gelecek Perspektifi",
+    "summary": "Türkiye’de Gümrük Müşavirliği mesleğinin tarihsel gelişimine baktığımızda, köklerinin Cumhuriyet’ten bile eskiye dayandığını görüyoruz. Osmanlı’dan bugüne uzanan bu yolculuk, hem ülke ekonomisi hem de toplum sağlığı açısından kritik dersler barındırıyor.\n",
+    "content": "Müşavirleri ve Gümrük Müşavir Yardımcıları, beyanname tescillerinden başlayan iş akışlarından sahada sevkiyat organizasyonuna kadar zincirin görünmeyen fakat vazgeçilmez halkası oldular.\n\nDünyadan Çarpıcı Örnekler\nABD’de grev hakkı anayasal güvenceye sahip olsa da tarihte yalnızca iki kez başkanlık emriyle grev durduruldu. Bunlardan biri İkinci Dünya Savaşı sırasında tersane işçilerinin grevi diğeri ise çok sonra ki dönemde Gümrük Müşavirlerinin greviydi. Sınır kapılarında biriken mallar ve tıkanan ihracat nedeniyle ekonomi üçüncü günde alarm verince, grev ulusal güvenlik gerekçesiyle sonlandırıldı. Bu olay, mesleğin ekonomik akış için ne kadar stratejik olduğunu gösteriyor.\nBir başka etkileyici örnek: Apollo görevinden dönen astronotların Ay’dan getirdiği taşlar için NASA’dan gümrük beyannamesi istenmesidir. “Sınırdan giren her şeyin beyanı” ilkesinin ne kadar titizlikle uygulandığının sembolik ama öğretici bir göstergesidir.\nToplum Sağlığı: Plastik ve Kağıt Hammaddeleri Örneği\nYakın geçmişte Türkiye genelinde yapılan bir denetimde, özellikle plastik granül ve selüloz bazlı kağıt-karton hammadde ithalatında kritik bir risk tespit edildi. Gıda ile temas edecek ürünlerde kullanılacak hammaddelerin Tarım Bakanlığı tarafından numunesi alınarak uygunluk kontrolünden geçmesi gerekirken, bazı ithalatçıların “gıda ile temas etmeyecek” beyanıyla bu süreci by-pass ettiği görüldü. Oysa:\nKarton bardaklardan meyve suyu kutularına,\nYoğurt kaplarından ayran ambalajlarına,\nFast food ambalajlarından sıcak içecek bardaklarına\nuzanan geniş bir yelpazede, malzeme kimyasalları sıcak/soğukla temas ettiğinde gıdaya sızıyor ve kanserojen etkiler oluşturabiliyordu.\nBu bulgular üzerine, sonradan kontrol mekanizmasını güçlendirmek amacıyla Yetkilendirilmiş Gümrük Müşavirlerine görev veren bir düzenleme çıkarıldı; ancak TOBB üyesi firmaların baskısıyla birkaç ay sonra geri çekildi. Bu deneyim, gümrük denetiminin yalnızca ekonomi için değil, doğrudan halk sağlığı için de belirleyici olduğunu net biçimde kanıtlamıştır.\nNeden Hayati? Ekonomi, Sağlık, Kültür ve Çevre\nGümrük Müşavirliği; ülke sınırlarının korunması, yasa dışı ticaretin engellenmesi, vergi kaybının önlenmesi, toplum sağlığının güvence altına alınması ve kültürel miras ile çevrenin korunmasında stratejik bir rol üstlenir. İyi yetişmiş, donanımlı meslek mensupları; kriz anlarında tedarik zincirini ayakta tutar, normal zamanlarda ise ekonominin ritmini süreklileştirir.\nMesleğin Geleceği: Eğitim, Uyum ve Şeffaflık\nSürekli Eğitim: Değişen mevzuat ve uluslararası standartlar doğrultusunda sürekli öğrenme şart.\nDijitalleşme ve Uyum: AB mevzuatı ve küresel ticaret kurallarıyla tam uyum, hızlı ve şeffaf süreçlerin anahtarı.\nSonradan Kontrolün Güçlendirilmesi: Halk sağlığı ve güvenlik için risk temelli, teknolojik denetim altyapısının güçlendirilmesi.\nMesleki Etik: Kamu otoritesiyle çıkar ilişkilerinden arınmış, şeffaf ve hesap verebilir bir meslek kültürü.\nSon Söz\nYaklaşık 33 yıldır mesleğin içinde olan ve üniversitelerde eğitimler, konferanslar veren Rıdvan Haliloğlu tecrübesiyle aktarılan bu çerçeve, Gümrük Müşavirliğinin yalnızca bir “aracılık” faaliyeti olmadığını; ekonominin, toplum sağlığının ve ulusal güvenliğin temel direklerinden biri olduğunu ortaya koyuyor. Daha sağlıklı bir gelecek ve daha güçlü bir ekonomi için, gümrük süreçlerinin bilgiyle, etikle ve teknolojiyle güçlendirilmesi kritik önem taşıyor.\nSevgiler, saygılar.\n\n",
     "author": "Rıdvan Haliloğlu",
     "date": "10 Ocak 2024",
     "imageUrl": "https://drive.google.com/file/d/1DkCF4TXBjKTl5UpBVAxLAG2iZG4blM_3/view?usp=sharing",

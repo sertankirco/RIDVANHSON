@@ -36,7 +36,8 @@ import {
   Linkedin,
   MapPin,
   Phone,
-  Mail
+  Mail,
+  Info
 } from 'lucide-react';
 
 interface AdminPanelProps {
@@ -174,7 +175,6 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         return post;
       });
       setPosts(updatedPosts);
-      alert('Yazı başarıyla güncellendi!');
     } else {
       // Create new post
       const newPost: BlogPost = {
@@ -188,10 +188,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         imageUrl: newPostImage || `https://picsum.photos/800/600?random=${Date.now()}`
       };
       setPosts([newPost, ...posts]);
-      alert('Yazı başarıyla yayınlandı!');
     }
     
-    setActiveTab('posts');
+    // Kullanıcıya bilgi ver ve yönlendir
+    if (window.confirm('Yazı geçici olarak kaydedildi!\n\nDeğişiklikleri şu an "Siteyi Görüntüle" diyerek görebilirsiniz.\n\nAncak bu değişikliklerin KALICI olması için "Kod Üret" sekmesinden kodu alıp constants.ts dosyasına yapıştırmanız gerekmektedir.\n\nŞimdi Kod Üretme sayfasına gitmek ister misiniz?')) {
+        setActiveTab('export');
+    } else {
+        setActiveTab('posts');
+    }
     resetForm();
   };
 
@@ -212,7 +216,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
      setEditContent(updatedContent);
      
      resetForm();
-     alert('Video eklendi!');
+     alert('Video yerel olarak eklendi! Kalıcı olması için lütfen Kod Üret sekmesini kullanın.');
   };
 
   const handleDeleteVideo = (id: string) => {
@@ -239,7 +243,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         const updatedContent = { ...siteContent, experience: updatedExpList };
         onUpdateSiteContent(updatedContent);
         setEditContent(updatedContent);
-        alert('Deneyim başarıyla güncellendi!');
+        alert('Deneyim güncellendi! Kalıcı olması için Kod Üret sekmesini kullanın.');
     } else {
         // ADD Logic
         const newExp: Experience = {
@@ -253,7 +257,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         const updatedContent = { ...siteContent, experience: [newExp, ...currentExp] };
         onUpdateSiteContent(updatedContent);
         setEditContent(updatedContent);
-        alert('Deneyim eklendi!');
+        alert('Deneyim eklendi! Kalıcı olması için Kod Üret sekmesini kullanın.');
     }
     resetForm();
   };
@@ -320,7 +324,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
   const handleSaveSettings = (e: React.FormEvent) => {
     e.preventDefault();
     onUpdateSiteContent(editContent);
-    alert('Site ayarları başarıyla güncellendi!');
+    alert('Site ayarları yerel olarak güncellendi! Kalıcı olması için lütfen Kod Üret sekmesini kullanın.');
   };
 
   const generateExportCode = () => {
@@ -328,7 +332,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
 
 // Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
 // eski veriyi silip yenisiyle güncelleyecektir.
-export const APP_VERSION = '2.5'; 
+export const APP_VERSION = '${Math.random().toString(36).substring(7)}'; 
 
 export const INITIAL_SITE_CONTENT: SiteContent = ${JSON.stringify(siteContent, null, 2)};
 
@@ -409,7 +413,7 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
         </nav>
 
         <div className="p-4 border-t border-slate-800 space-y-2">
-          <button onClick={onViewSite} className="w-full flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-white transition-colors">
+          <button onClick={onViewSite} className="w-full flex items-center gap-3 px-4 py-3 text-white bg-green-600 hover:bg-green-700 rounded-lg transition-colors font-bold shadow-lg">
             <Globe className="w-5 h-5" />
             Siteyi Görüntüle
           </button>
@@ -422,6 +426,16 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
 
       {/* Main Content */}
       <main className="flex-1 ml-64 p-8">
+        
+        {/* Info Banner for Static Site Mode */}
+        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg flex items-start gap-3 text-blue-800 text-sm">
+           <Info className="w-5 h-5 shrink-0 mt-0.5" />
+           <div>
+             <strong>Önemli Bilgi:</strong> Buradaki değişiklikler veritabanı olmadığı için sadece <u>bu tarayıcıda</u> geçici olarak tutulur. 
+             Değişikliklerin herkes için kalıcı olması amacıyla işiniz bittiğinde <button onClick={() => setActiveTab('export')} className="underline font-bold hover:text-blue-900">Kod Üret / Yayınla</button> sekmesindeki kodu kopyalayıp geliştiricinize iletmeniz veya constants.ts dosyasına yapıştırmanız gerekmektedir.
+           </div>
+        </div>
+
         {activeTab === 'dashboard' && (
           <div className="space-y-8 animate-fadeIn">
             <h1 className="text-3xl font-bold text-slate-900">Hoşgeldiniz, {siteContent.personal.name}</h1>
@@ -447,6 +461,14 @@ export const INITIAL_POSTS: BlogPost[] = ${JSON.stringify(posts, null, 2)};`;
                   <Briefcase className="w-5 h-5 text-green-600" />
                 </div>
                 <p className="text-3xl font-bold text-slate-900">{(siteContent.experience || []).length}</p>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+              <h2 className="text-lg font-bold text-slate-900 mb-4">Hızlı İşlemler</h2>
+              <div className="flex gap-4">
+                 <Button onClick={onViewSite} icon={<Globe className="w-4 h-4" />}>Sitede Son Hali Gör</Button>
+                 <Button variant="secondary" onClick={() => setActiveTab('export')} icon={<Code className="w-4 h-4" />}>Yayınlama Kodunu Al</Button>
               </div>
             </div>
 
