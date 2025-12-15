@@ -366,14 +366,21 @@ export default function App() {
                       <div className="relative aspect-video">
                         {videoId ? (
                           <iframe 
-                            src={`https://www.youtube.com/embed/${videoId}`} 
+                            src={`https://www.youtube.com/embed/${videoId}?rel=0&origin=${window.location.origin}`} 
                             title={video.title}
                             className="w-full h-full"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
+                            loading="lazy"
                           ></iframe>
                         ) : (
-                           <div className="w-full h-full flex items-center justify-center bg-slate-900">Video Yüklenemedi</div>
+                           <div className="w-full h-full flex items-center justify-center bg-slate-900 text-slate-500 flex-col gap-2">
+                             <div className="p-3 bg-slate-800 rounded-full">
+                               <Play className="w-6 h-6 opacity-50" />
+                             </div>
+                             <span className="text-sm">Video Yüklenemedi</span>
+                             <span className="text-xs opacity-50">{video.url}</span>
+                           </div>
                         )}
                       </div>
                       <div className="p-6">

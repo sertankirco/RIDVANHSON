@@ -1,6 +1,6 @@
 import { BlogPost, SiteContent } from './types';
 
-export const APP_VERSION = '3.0';
+export const APP_VERSION = '3.2';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -39,15 +39,15 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   "videos": [
     {
       "id": "1",
-      "title": "İGMD Genel Kurulunda Rıdvan HALİLOĞLU Konuşuyor",
-      "url": "https://youtu.be/eYUJHnTscbs?si=aaba52AKfF1V2geH",
-      "description": "İGMD Genel Kurul"
+      "title": "Lojistik Yönetimi Nedir?",
+      "url": "https://www.youtube.com/watch?v=5y5Wk_M6f20",
+      "description": "Lojistik ve Tedarik Zinciri Yönetimi üzerine genel bir bakış."
     },
     {
       "id": "2",
-      "title": "Gümrük Nedir?",
-      "url": "https://www.youtube.com/watch?v=P4t8r8c6jI0",
-      "description": "Uluslararası ticarette gümrüklerin rolü ve işleyişi."
+      "title": "Gümrük Müşavirliği Mesleği",
+      "url": "https://www.youtube.com/watch?v=2eR6vJ4p4QY",
+      "description": "Gümrük Müşavirliği mesleği ve süreçleri hakkında bilgilendirme."
     }
   ],
   "experience": [
@@ -89,6 +89,7 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   ]
 };
 
+// BURADAN YAZILARI DEĞİŞTİREBİLİRSİNİZ
 export const INITIAL_POSTS: BlogPost[] = [
   {
     "id": "1",
