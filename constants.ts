@@ -1,8 +1,7 @@
 import { BlogPost, SiteContent } from './types';
 
-// Bu versiyon numarasını değiştirdiğimizde, site ziyaretçilerin tarayıcısındaki 
-// eski veriyi silip yenisiyle güncelleyecektir.
-export const APP_VERSION = 'oy625'; 
+// Eğer bir değişiklik yaparsanız ve sitede görünmezse, bu versiyon numarasını değiştirin (örn: 3.4, 3.5 yapın)
+export const APP_VERSION = '3.5';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -23,6 +22,7 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
     "youtube": "https://youtube.com"
   },
   "hero": {
+    // ANA SAYFA BÜYÜK YAZILAR (HERO ALANI)
     "badge": "Mundoimex YK Başkanı",
     "titleLine1": "Gümrük, Lojistik, Dış Ticaret ve",
     "titleHighlight": "Geleceğin Gümrükleri",
@@ -41,15 +41,9 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   "videos": [
     {
       "id": "1",
-      "title": "Lojistik Yönetimi Nedir?",
-      "url": "https://www.youtube.com/watch?v=5y5Wk_M6f20",
-      "description": "Lojistik ve Tedarik Zinciri Yönetimi üzerine genel bir bakış."
-    },
-    {
-      "id": "2",
-      "title": "Gümrük Müşavirliği Mesleği",
-      "url": "https://www.youtube.com/watch?v=2eR6vJ4p4QY",
-      "description": "Gümrük Müşavirliği mesleği ve süreçleri hakkında bilgilendirme."
+      "title": "Sektörel Değerlendirme",
+      "url": "https://youtu.be/q6hRBQabW64?si=esC6o8D0btvpNqCz",
+      "description": "Gümrük ve Dış Ticaret üzerine güncel değerlendirmeler."
     }
   ],
   "experience": [
@@ -91,10 +85,13 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   ]
 };
 
+// =================================================================
+// BLOG YAZILARI BURADA - BURADAKİ METİNLERİ DEĞİŞTİREBİLİRSİNİZ
+// =================================================================
 export const INITIAL_POSTS: BlogPost[] = [
   {
     "id": "1",
-    "title": "Gümrüklerde Dijital Dönüşüm ve Endüstri 4.0",
+    "title": "Gümrüklerde Dijital Dönüşüm ve Endüstri 4.0", // <-- BAŞLIĞI BURADAN DEĞİŞTİRİN
     "summary": "Dijital gümrük uygulamaları, blockchain teknolojisi ve lojistikte veri yönetiminin geleceği üzerine bir değerlendirme.",
     "content": "Dünya ticareti hızla dijitalleşirken, gümrük süreçlerinin bu dönüşüme ayak uydurması artık bir tercih değil, zorunluluktur. \"Dijital Gümrükler\" kavramı, sadece evrak işlerinin elektronik ortama taşınması değil, verinin akıllıca işlenmesi ve süreçlerin optimize edilmesidir.\n\n    Endüstri 4.0 ile birlikte lojistik ve tedarik zinciri yönetimi, nesnelerin interneti (IoT) ve yapay zeka ile yeniden şekilleniyor. Gümrük idarelerinin bu teknolojileri entegre etmesi, ticaretin hızını artırırken maliyetleri düşürecektir.\n\n    Özellikle Blockchain teknolojisi, şeffaflık ve güvenilirlik açısından devrim niteliğinde fırsatlar sunuyor. Tek Pencere Sistemi (TPS) gibi uygulamalar başlangıç olsa da, tam entegre bir dijital ekosistem için daha atılacak çok adım var.",
     "author": "Rıdvan Haliloğlu",
