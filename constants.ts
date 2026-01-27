@@ -1,7 +1,7 @@
 import { BlogPost, SiteContent } from './types';
 
 // Eğer bir değişiklik yaparsanız ve sitede görünmezse, bu versiyon numarasını değiştirin (örn: 3.4, 3.5 yapın)
-export const APP_VERSION = '3.5';
+export const APP_VERSION = '4.3';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -41,9 +41,21 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
   "videos": [
     {
       "id": "1",
-      "title": "Sektörel Değerlendirme",
+      "title": "İGMD Seçimleri 2026 - Başkan Adayı",
       "url": "https://youtu.be/q6hRBQabW64?si=esC6o8D0btvpNqCz",
-      "description": "Gümrük ve Dış Ticaret üzerine güncel değerlendirmeler."
+      "description": "RIDVAN HALİLOĞLU Özel Açıklamalar"
+    },
+    {
+      "id": "2",
+      "title": "26 Ocak Dünya Gümrük Günü",
+      "url": "https://youtu.be/1p3pk7L4BcE",
+      "description": "2026 Yılı Teması: “Gümrük Teyakkuz ve Kararlılıkla Toplumu Korur”"
+    },
+    {
+       "id": "3",
+       "title": "Avrupa Birliği ve Dış İlişkiler Komitesi Faaliyet Alanları",
+       "url": "https://youtu.be/BLtQUsfx5XU",
+       "description": "Komite çalışmaları, hedefler ve süreçler hakkında bilgilendirme."
     }
   ],
   "experience": [

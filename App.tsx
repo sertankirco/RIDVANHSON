@@ -6,10 +6,10 @@ import { BlogCard } from './components/BlogCard';
 import { PostModal } from './components/PostModal';
 import { BioModal } from './components/BioModal';
 import { Button } from './components/Button';
+import { VideoPlayer } from './components/VideoPlayer';
 import { AdminLogin } from './components/AdminLogin';
 import { AdminPanel } from './components/AdminPanel';
 import { getValidImageUrl } from './utils/image';
-import { getYoutubeId } from './utils/video';
 import { 
   Sparkles, 
   Linkedin, 
@@ -358,38 +358,18 @@ export default function App() {
            {(!siteContent.videos || siteContent.videos.length === 0) ? (
              <div className="text-center text-slate-500 py-10">Henüz video eklenmemiş.</div>
            ) : (
-             <div className="grid md:grid-cols-2 gap-8">
-                {siteContent.videos.map((video) => {
-                  const videoId = getYoutubeId(video.url);
-                  return (
-                    <div key={video.id} className="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 hover:border-red-500 transition-colors group">
-                      <div className="relative aspect-video">
-                        {videoId ? (
-                          <iframe 
-                            src={`https://www.youtube.com/embed/${videoId}?rel=0&origin=${window.location.origin}`} 
-                            title={video.title}
-                            className="w-full h-full"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            loading="lazy"
-                          ></iframe>
-                        ) : (
-                           <div className="w-full h-full flex items-center justify-center bg-slate-900 text-slate-500 flex-col gap-2">
-                             <div className="p-3 bg-slate-800 rounded-full">
-                               <Play className="w-6 h-6 opacity-50" />
-                             </div>
-                             <span className="text-sm">Video Yüklenemedi</span>
-                             <span className="text-xs opacity-50">{video.url}</span>
-                           </div>
-                        )}
-                      </div>
-                      <div className="p-6">
-                        <h3 className="text-xl font-bold mb-2 group-hover:text-red-500 transition-colors">{video.title}</h3>
-                        <p className="text-slate-400 text-sm">{video.description}</p>
-                      </div>
+             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {siteContent.videos.map((video) => (
+                  <div key={video.id} className="bg-slate-800 rounded-2xl overflow-hidden border border-slate-700 hover:border-red-500 transition-colors group shadow-lg flex flex-col">
+                    <div className="relative aspect-video w-full">
+                       <VideoPlayer url={video.url} title={video.title} />
                     </div>
-                  )
-                })}
+                    <div className="p-6 bg-slate-800 flex-1 flex flex-col">
+                      <h3 className="text-xl font-bold mb-2 group-hover:text-red-500 transition-colors line-clamp-2">{video.title}</h3>
+                      <p className="text-slate-400 text-sm line-clamp-3">{video.description}</p>
+                    </div>
+                  </div>
+                ))}
              </div>
            )}
         </div>
