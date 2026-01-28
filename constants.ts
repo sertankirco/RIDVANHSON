@@ -1,7 +1,7 @@
 import { BlogPost, SiteContent } from './types';
 
 // Eğer bir değişiklik yaparsanız ve sitede görünmezse, bu versiyon numarasını değiştirin (örn: 3.4, 3.5 yapın)
-export const APP_VERSION = '4.3';
+export const APP_VERSION = '5.1';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -102,8 +102,50 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
 // =================================================================
 export const INITIAL_POSTS: BlogPost[] = [
   {
+    "id": "6",
+    "title": "Pandeminin Sessiz Kahramanları: Gümrük Emekçileri",
+    "summary": "Pandemi döneminde sessiz ve görünmeyen ama hayati bir görev üstlenen gümrük emekçilerinin, aşı ve tıbbi ekipman tedarikindeki kritik rollerine dair bir değerlendirme.",
+    "content": "Pandeminin Sessiz Kahramanları: Gümrük Emekçileri\n\nPandemi döneminde hepimiz evlerimize kapanmışken, her akşam balkonlardan yükselen alkışlarla sağlık çalışanlarımıza minnetimizi sunduk. O alkışlar çok kıymetliydi. Ancak o zorlu günlerde, alkışların pek ulaşmadığı; sessiz, görünmeyen ama hayati bir görev üstlenen başka bir kesim daha vardı.\n\nHayatın Devamlılığı İçin Sessiz Bir Mücadele\n\nAşıların Çin’den, Almanya’dan ve dünyanın dört bir yanından ülkemize ulaşabilmesi…\nYoğun bakım cihazlarının, solunum destek ünitelerinin ve hayati tıbbi ekipmanların gümrüklerden zamanında geçebilmesi…\nKriz anlarında hem insan hayatının hem de ülke ekonomisinin aksamadan sürdürülebilmesi…\n\nTüm bu sürecin arkasında, çoğu zaman fark edilmeyen büyük bir emek vardı.\n\nGecenin Bir Yarısı, Sessiz Bir İmza\n\nGümrük çalışanları, gümrük müşavirleri ve gümrük müşavir yardımcıları; pandemi boyunca sokağa çıkma izinleriyle, gece gündüz demeden görev başındaydı. Birçok kişi evlerinde güvenlik ararken, onlar sınır kapılarında, limanlarda, antrepolarda ve bilgisayar başında hayat kurtaran evrakların peşindeydi.\n\nBir imzanın gecikmesi bir cihazın hastaneye ulaşmasını, bir belgenin eksikliği binlerce doz aşının beklemesini sağlayabilirdi. Bu yüzden bu meslek mensupları yalnızca bir işle değil, doğrudan insan hayatıyla sorumluydu.\n\nGörünmeyen Ama Vazgeçilmez\n\nGümrük sistemi; kriz zamanlarında bir ülkenin nefes borusudur. Tedarik zincirinin kopmaması, sağlık sisteminin ayakta kalması ve toplum düzeninin sürdürülebilmesi için bu mekanizmanın kusursuz işlemesi gerekir. Pandemi bize bir kez daha gösterdi ki; gümrük emekçileri olmadan hiçbir sistem tam anlamıyla çalışamaz.\n\nBir Teşekkürden Fazlası\n\nBugün geriye dönüp baktığımızda, yalnızca alkışlamak değil; fark etmek, anlamak ve hakkını teslim etmek zorundayız. Gümrük çalışanları ve gümrük müşavirleri, pandeminin sessiz kahramanları olarak tarihteki yerlerini çoktan aldılar.\n\n🎗️ Saygı ve minnetle…",
+    "author": "Rıdvan Haliloğlu",
+    "date": "12 Haziran 2024",
+    "imageUrl": "https://images.unsplash.com/photo-1584483766114-2cea6facdf57?q=80&w=1000&auto=format&fit=crop",
+    "tags": [
+      "Pandemi",
+      "Gümrük Emekçileri",
+      "Lojistik"
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Mesleğimizin Geleceği İçin Ortak Sorumluluk",
+    "summary": "Gümrük Müşavirliği mesleği, devlet ile ticaret arasında kurulan bir güven köprüsüdür. Bu köklü mirasın sorumluluğuyla mesleğimizin geleceğini ortak akılla inşa etmeliyiz.",
+    "content": "Gümrük Müşavirliği: Devlet ile Ticaret Arasında Güven Köprüsü\n\nKökleri Osmanlı’dan Cumhuriyet’e uzanan Gümrük Müşavirliği mesleği, yalnızca bir iş alanı değil; devlet ile ticaret arasında kurulan güçlü bir güven köprüsüdür. Gümrük Müşavirleri ve Gümrük Müşavir Yardımcıları, sorumluluğu artırılıp hakkı görmezden gelinecek bir mesleğin mensupları değildir. Bizler; hukuku, ulusal ve uluslararası mevzuatı ve vicdanı birlikte taşıyan bir meslek temsilcileriyiz.\n\nBu köklü miras ve sorumluluk bilinci, meslek örgütlerimizin yönetim anlayışında da temel ilke olmalıdır.\n\nNeden Bu Adaylık?\n\nBaşkan adaylığı bir makam arayışı değil; mesleğin onurunu, güvencesini ve geleceğini koruma sorumluluğudur. Bu anlayışla;\n\nMeslek onurunu önceleyen,\nMeslektaşlarımızın ekonomik ve hukuki güvencesini savunan,\nGenç meslektaşlara yol açan,\nİdare ile diyalogda güçlü; ancak bağımsız ve ilkeli\nbir meslek örgütü yapısını hakim kılmayı hedefliyoruz.\n\nOrtak Akıl, Ortak Yönetim\n\nGöreve geldiğimizde Derneğimizi hep birlikte yönetmek; mesleğimizin itibarını güçlendirirken meslektaşlarımızın emeğini korumak ve geleceği ortak akılla inşa etmek temel sorumluluğumuz olacaktır.\n\nBu nedenle seçim sürecini; uzlaşmacı, kapsayıcı ve yapıcı bir anlayışla yürütmek en büyük önceliğimizdir. Bugüne kadar görev almış, emek vermiş herkese teşekkür ediyor; hiç kimseyi ayrıştırmadan, ortak bir dil ve ortak bir hedef etrafında buluşmayı önemsiyoruz.\n\nMesleğimizin Geleceği İçin\n\nEn kısa sürede paylaşacağımız video duyurusuna kadar, bu mesajın meslektaşlarımız arasında yayılmasını rica ediyoruz:\n\nDesteğinizi bir kişi veya bir grup için değil, mesleğimizin geleceği için istiyoruz.\n\nBirlikte güçlenmek, birlikte üretmek ve mesleğimizin saygınlığını daha ileriye taşımak için desteğiniz kıymetlidir.\n\nSevgiler,\nRıdvan Haliloğlu",
+    "author": "Rıdvan Haliloğlu",
+    "date": "24 Mayıs 2024",
+    "imageUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000&auto=format&fit=crop",
+    "tags": [
+      "Meslek Onuru",
+      "Vizyon",
+      "Gümrük Müşavirliği"
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Avrupa Birliği ve Dış İlişkiler Komitesi Faaliyet Alanları",
+    "summary": "AB Gümrük Birliği ve uluslararası kuruluşlar ile ilişkilerin geliştirilmesi ve yeni iş birliği projelerinin hedefleri üzerine bir çalışma.",
+    "content": "1. Avrupa Birliği ve Dış İlişkiler Komitesi\n\nKuruluş Gerekçesi\nAB Gümrük Birliği, Dünya Gümrük Örgütü (WCO) ve diğer uluslararası kuruluşlar ile ilişkilerin geliştirilerek yeni uygulamalar ve meslek mensuplarının yararlanabileceği fonlar ile teşviklerin takip edilerek yeni iş birliği projelerin hazırlanması amaçlanmaktadır.\n\nGörevler:\nHer ayın ilk Salı günü İGMD Merkezinde veya çevrimiçi olarak 13:00 / 17:00 arası toplanır.\n• AB mevzuat uyum takibi\n• Uluslararası kuruluşlarla ilişkilerin geliştirilmesi\n• Meslek Mensuplarının yararlanabileceği fon ve teşviklerin takibi\n\nYıllık Faaliyet Planı\n1. Çeyrek: AB Gümrük Birliği ve güncel AB düzenlemeleri analiz çalışması\n2. Çeyrek: Uluslararası meslek örgütleri ve odalarla temas kurulması\n3. Çeyrek: AB uygulamalarıyla karşılaştırmalı rapor hazırlanması\n4. Çeyrek: Uluslararası iş birliği ve temsil faaliyetleri değerlendirme raporu\n\nSomut Çıktılar\n• AB mevzuat uyum raporu\n• Uluslararası temas ve iş birliği dosyası\n• Karşılaştırmalı uygulama analizleri",
+    "author": "Rıdvan Haliloğlu",
+    "date": "26 Ocak 2024",
+    "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+    "tags": [
+      "Avrupa Birliği",
+      "Dış İlişkiler",
+      "Gümrük Birliği"
+    ]
+  },
+  {
     "id": "1",
-    "title": "Gümrüklerde Dijital Dönüşüm ve Endüstri 4.0", // <-- BAŞLIĞI BURADAN DEĞİŞTİRİN
+    "title": "Gümrüklerde Dijital Dönüşüm ve Endüstri 4.0",
     "summary": "Dijital gümrük uygulamaları, blockchain teknolojisi ve lojistikte veri yönetiminin geleceği üzerine bir değerlendirme.",
     "content": "Dünya ticareti hızla dijitalleşirken, gümrük süreçlerinin bu dönüşüme ayak uydurması artık bir tercih değil, zorunluluktur. \"Dijital Gümrükler\" kavramı, sadece evrak işlerinin elektronik ortama taşınması değil, verinin akıllıca işlenmesi ve süreçlerin optimize edilmesidir.\n\n    Endüstri 4.0 ile birlikte lojistik ve tedarik zinciri yönetimi, nesnelerin interneti (IoT) ve yapay zeka ile yeniden şekilleniyor. Gümrük idarelerinin bu teknolojileri entegre etmesi, ticaretin hızını artırırken maliyetleri düşürecektir.\n\n    Özellikle Blockchain teknolojisi, şeffaflık ve güvenilirlik açısından devrim niteliğinde fırsatlar sunuyor. Tek Pencere Sistemi (TPS) gibi uygulamalar başlangıç olsa da, tam entegre bir dijital ekosistem için daha atılacak çok adım var.",
     "author": "Rıdvan Haliloğlu",
@@ -119,7 +161,7 @@ export const INITIAL_POSTS: BlogPost[] = [
     "id": "2",
     "title": "Lojistik Sektöründe Eğitimin Geleceği",
     "summary": "Genç gümrük müşavirleri ve lojistikçiler için sürekli eğitimin önemi ve akademik yaklaşımlar.",
-    "content": "Lojistik, sadece malların A noktasından B noktasına taşınması değil, karmaşık mevzuatların ve operasyonel süreçlerin yönetildiği multidisipliner bir alandır. Bu nedenle, sektör çalışanlarının eğitimi hayati önem taşır.\n\n    UTİKAD Akademi ve üniversitelerde verdiğim derslerde her zaman vurguladığım bir nokta var: \"Bilgi, lojistiğin en değerli yüküdür.\" Teorik bilginin saha tecrübesiyle harmanlanması, nitelikli iş gücünün temelini oluşturur.\n\n    Geleceğin lojistikçileri, sadece mevzuatı ezberleyen değil, analitik düşünebilen, kriz yönetebilen ve teknolojiyi etkin kullanabilen bireyler olmalıdır. Mentorluk sistemleri ve üniversite-sektör işbirlikleri bu noktada kilit rol oynuyor.",
+    "content": "Lojistik, sadece malların A noktasından B noktasına taşınması değil, karmaşık mevzuatların ve operasyonel süreçlerin yönetildiği multidisipliner bir alandır. Bu nedenle, sektör çalışanlarının eğitimi hayati önem taşır.\n\n    UTİKAD Akademi ve universitylerde verdiğim derslerde her zaman vurguladığım bir nokta var: \"Bilgi, lojistiğin en değerli yüküdür.\" Teorik bilginin saha tecrübesiyle harmanlanması, nitelikli iş gücünün temelini oluşturur.\n\n    Geleceğin lojistikçileri, sadece mevzuatı ezberleyen değil, analitik düşünebilen, kriz yönetebilen ve teknolojiyi etkin kullanabilen bireyler olmalıdır. Mentorluk sistemleri ve üniversite-sektör işbirlikleri bu noktada kilit rol oynuyor.",
     "author": "Rıdvan Haliloğlu",
     "date": "02 Aralık 2023",
     "imageUrl": "https://drive.google.com/file/d/1LkW0yzlkmmcZev3Gz7ip7k86vCtobFV7/view?usp=drive_link",
