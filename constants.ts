@@ -1,7 +1,7 @@
 import { BlogPost, SiteContent } from './types';
 
 // Eğer bir değişiklik yaparsanız ve sitede görünmezse, bu versiyon numarasını değiştirin (örn: 3.4, 3.5 yapın)
-export const APP_VERSION = '5.1';
+export const APP_VERSION = '5.2';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -56,6 +56,12 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
        "title": "Avrupa Birliği ve Dış İlişkiler Komitesi Faaliyet Alanları",
        "url": "https://youtu.be/BLtQUsfx5XU",
        "description": "Komite çalışmaları, hedefler ve süreçler hakkında bilgilendirme."
+    },
+    {
+       "id": "4",
+       "title": "Gümrük ve Dış Ticaret Gündemi",
+       "url": "https://youtu.be/IT52FMI8hn0",
+       "description": "Sektörel gelişmeler ve güncel değerlendirmeler."
     }
   ],
   "experience": [
