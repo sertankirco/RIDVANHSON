@@ -1,7 +1,7 @@
 import { BlogPost, SiteContent } from './types';
 
 // Eğer bir değişiklik yaparsanız ve sitede görünmezse, bu versiyon numarasını değiştirin (örn: 3.4, 3.5 yapın)
-export const APP_VERSION = '5.2';
+export const APP_VERSION = '5.4';
 
 export const INITIAL_SITE_CONTENT: SiteContent = {
   "personal": {
@@ -62,6 +62,12 @@ export const INITIAL_SITE_CONTENT: SiteContent = {
        "title": "Gümrük ve Dış Ticaret Gündemi",
        "url": "https://youtu.be/IT52FMI8hn0",
        "description": "Sektörel gelişmeler ve güncel değerlendirmeler."
+    },
+    {
+       "id": "5",
+       "title": "Yönetim Kurulu Liste",
+       "url": "https://youtu.be/2snzlPZd1VQ?si=0qFeo0u-ppWVDTjm",
+       "description": "Güncel gelişmeler ve sektörel analizler."
     }
   ],
   "experience": [
